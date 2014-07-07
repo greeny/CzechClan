@@ -39,6 +39,10 @@ class Authenticator extends Object implements IAuthenticator {
 			throw new AuthenticationException("Špatné heslo.", self::INVALID_CREDENTIAL);
 		}
 
+		if($user->verified === FALSE) {
+			throw new AuthenticationException("Uživatel nemá ověřený email.", self::NOT_APPROVED);
+		}
+
 		return new Identity($user->id, $user->role, $user->getData());
 	}
 }

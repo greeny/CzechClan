@@ -35,7 +35,17 @@
 
 
 					<ul class="nav navbar-nav navbar-right">
-
+						{if $user->loggedIn}
+							<li><a n:href=":User:Profile:detail">Profil ({$user->identity->nick})</a></li>
+							<li><a n:href="logout!">Odhlásit se</a></li>
+						{else}
+							<li>{form signInForm, class => 'navbar-form'}
+								{input nick, class => 'form-control'}
+								{input password, class => 'form-control'}
+								{input signIn, class => 'form-control btn-primary'}
+							{/form}</li>
+							<li><a n:href=":User:Sign:up">Nový účet</a></li>
+						{/if}
 					</ul>
 				</div>
 			</div>
@@ -49,7 +59,10 @@
 				{$flash->message}
 			</div>
 		</div>
-		{include content}
+		<div class="row">
+			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">{include content}</div>
+			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">Panel</div>
+		</div>
 	</div>
 
 	<script src="{$basePath}/js/jquery.js"></script>

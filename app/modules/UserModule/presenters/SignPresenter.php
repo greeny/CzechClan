@@ -6,14 +6,17 @@
 namespace CzechClan\UserModule;
 
 use CzechClan\Controls\Form;
-use CzechClan\Model\UserRepository;
 use Nette\Mail\Message;
 use Nette\Security\AuthenticationException;
 
 class SignPresenter extends BaseUserPresenter
 {
-	/** @var UserRepository @inject */
-	public $userRepository;
+	public function actionUp()
+	{
+		if($this->user->isLoggedIn()) {
+			$this->redirect(':Public:Dashboard:default');
+		}
+	}
 
 	protected function createComponentSignUpForm()
 	{

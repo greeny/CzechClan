@@ -6,6 +6,7 @@ use CzechClan\Mail\CzechClanMailer;
 use CzechClan\Templating\Helpers;
 use CzechClan\Controls\Form;
 use Nette\Application\UI\Presenter;
+use Nette\Security\AuthenticationException;
 
 abstract class BasePresenter extends Presenter
 {
@@ -38,6 +39,34 @@ abstract class BasePresenter extends Presenter
 		$this->redirect(":Public:Dashboard:default");
 	}
 
+	protected function createComponentSignInForm()
+	{
+		$form = $this->createForm();
+		$form->elementPrototype->addAttributes(array('class' => 'form-inline'));
+		$form->addText('nick', 'Nick')
+			->setRequired('Prosím zadej svůj nick.')
+			->setAttribute('placeholder', 'Nick');
+		$form->addPassword('password', 'Heslo')
+			->setRequired('Prosím zadej svoje heslo.')
+			->setAttribute('placeholder', 'Heslo');
+		$form->addSubmit('signIn', 'Přihlásit se');
+		$form->onSuccess[] = $this->signInFormSuccess;
+		return $form;
+	}
+
+	public function signInFormSuccess(Form $form)
+	{
+		$v = $form->getValues();
+		try {
+			$this->user->login($v->nick, $v->password);
+			$this->user->setExpiration('+14 days', FALSE, TRUE);
+			$this->flashSuccess('Přihlášení proběhlo úspěšně.');
+		} catch(AuthenticationException $e) {
+			$this->flashError($e->getMessage());
+		}
+		$this->refresh();
+	}
+
 	public function flashError($message)
 	{
 		return $this->flashMessage($message, 'danger');
@@ -50,28 +79,5 @@ abstract class BasePresenter extends Presenter
 
 	public function refresh() {
 		$this->redirect('this');
-	}
-
-	public function createComponentPaginatorForm()
-	{
-		$form = new \Nette\Application\UI\Form();
-		$form->addText('page', 'Přejít na stranu:')
-			->setRequired('Prosím vyplň stranu na kterou chceš přejít.')
-			->setAttribute('placeholder', 'Stránka');
-
-		$form->addHidden('maxPage');
-		$form->addSubmit('goto', 'Přejít');
-		$form->onSuccess[] = $this->paginatorFormSuccess;
-		return $form;
-	}
-
-	public function paginatorFormSuccess(Form $form)
-	{
-		$v = $form->getValues();
-		if($v->maxPage >= $v->page) {
-			$this->redirect('this', array('page' => $v->page));
-		} else {
-			$this->redirect('this', array('page' => $v->maxPage));
-		}
 	}
 }
