@@ -31,5 +31,7 @@ services:
 	- CzechClan\Security\Authenticator
 	- CzechClan\Security\Authorizator
 
+	- CzechClan\Mail\CzechClanMailer( %mailing.fromEmail% , %mailing.fromName% )
+
 	- CzechClan\Routing\RouterFactory
 	router: @CzechClan\Routing\RouterFactory::createRouter

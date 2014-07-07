@@ -7,3 +7,6 @@ parameters:
 		password:
 		profiler: TRUE
 		lazy: yes
+	mailing:
+		fromEmail: from@example.com
+		fromName: Example.com mailer

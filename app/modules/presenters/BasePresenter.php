@@ -2,12 +2,16 @@
 
 namespace CzechClan;
 
+use CzechClan\Mail\CzechClanMailer;
 use CzechClan\Templating\Helpers;
 use CzechClan\Controls\Form;
 use Nette\Application\UI\Presenter;
 
 abstract class BasePresenter extends Presenter
 {
+	/** @var CzechClanMailer @inject */
+	public $mailer;
+
 	public function createForm()
 	{
 		$form = new Form();
