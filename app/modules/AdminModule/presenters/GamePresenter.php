@@ -14,6 +14,11 @@ class GamePresenter extends BaseGeneralAdminPresenter
 	/** @var Game */
 	protected $game;
 
+	public function renderDefault()
+	{
+		$this->template->games = $this->gameRepository->findAll();
+	}
+
 	public function actionEdit($id)
 	{
 		if(!$this->template->game = $this->game = $this->gameRepository->findBySlug($id)) {
