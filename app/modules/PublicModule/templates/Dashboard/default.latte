@@ -1,1 +1,13 @@
-{block content}
+{block content-outer}
+<div class="jumbotron">
+	<h1>Czech clan - oficiální webové stránky</h1>
+	<div class="text-center">
+		<div class="btn-group-vertical">
+			{foreach $games as $game}
+				<a class="btn btn-default btn-lg"
+				   n:href=":Game:Dashboard:default slug => $game->slug">{$game->name}
+				</a>
+			{/foreach}
+		</div>
+	</div>
+</div>

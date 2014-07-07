@@ -21,7 +21,11 @@ class RouterFactory
 			'action' => 'default',
 		));
 		$router[] = new Route('<slug>/<presenter>/<action>[/<id>]', array(
-			'slug' => 'none',
+			'module' => 'Game',
+			'presenter' => 'Dashboard',
+			'action' => 'default',
+		));
+		$router[] = new Route('[<id [0-9]{1,}>]', array(
 			'module' => 'Public',
 			'presenter' => 'Dashboard',
 			'action' => 'default',

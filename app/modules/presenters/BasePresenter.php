@@ -3,6 +3,7 @@
 namespace CzechClan;
 
 use CzechClan\Mail\CzechClanMailer;
+use CzechClan\Model\GameRepository;
 use CzechClan\Templating\Helpers;
 use CzechClan\Controls\Form;
 use Nette\Application\UI\Presenter;
@@ -12,6 +13,9 @@ abstract class BasePresenter extends Presenter
 {
 	/** @var CzechClanMailer @inject */
 	public $mailer;
+
+	/** @var GameRepository @inject */
+	public $gameRepository;
 
 	public function createForm()
 	{
@@ -23,6 +27,7 @@ abstract class BasePresenter extends Presenter
 	{
 		parent::beforeRender();
 		Helpers::prepareTemplate($this->template);
+		$this->template->games = $this->gameRepository->findForDashboard();
 	}
 
 	public function getParamByName($name)
