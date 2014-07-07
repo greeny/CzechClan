@@ -3,3 +3,17 @@
 body {
 	margin-top: 60px;
 }
+
+.help:before {
+	content:"\f059";
+	font-family:FontAwesome;
+	font-weight:normal;
+	font-style:normal;
+	text-decoration:inherit;
+	-webkit-font-smoothing:antialiased;
+	*margin-right:.3em;
+}
+
+.help + .tooltip {
+	font-weight: normal;
+}

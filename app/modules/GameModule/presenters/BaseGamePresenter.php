@@ -9,7 +9,7 @@ use CzechClan\BasePresenter;
 use CzechClan\Model\Game;
 use CzechClan\Model\GameRepository;
 
-class BaseGamePresenter extends BasePresenter
+abstract class BaseGamePresenter extends BasePresenter
 {
 	/** @var string @persistent */
 	public $slug;

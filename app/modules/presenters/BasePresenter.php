@@ -8,6 +8,7 @@ use CzechClan\Templating\Helpers;
 use CzechClan\Controls\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
+use Nette\Utils\Html;
 
 abstract class BasePresenter extends Presenter
 {
@@ -54,7 +55,7 @@ abstract class BasePresenter extends Presenter
 		$form->addPassword('password', 'Heslo')
 			->setRequired('Prosím zadej svoje heslo.')
 			->setAttribute('placeholder', 'Heslo');
-		$form->addSubmit('signIn', 'Přihlásit se');
+		$form->addSubmit('signIn');
 		$form->onSuccess[] = $this->signInFormSuccess;
 		return $form;
 	}

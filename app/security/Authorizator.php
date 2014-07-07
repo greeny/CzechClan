@@ -17,13 +17,13 @@ class Authorizator extends Permission {
 		$this->addRole('admin', 'member');
 		$this->addRole('owner', 'admin');
 
-		$this->addResource('post');
-		$this->addResource('user');
-		$this->addResource('comment');
+		$this->addResource('forum');
+		$this->addResource('shoutbox');
+		$this->addResource('admin');
 
-		$this->allow('guest', 'post', array('view'));
-		$this->allow('member', 'post', array('compose', 'edit', 'delete'));
-		$this->allow('admin', 'post', array('f-edit', 'f-delete'));
+		$this->allow('guest', array('forum', 'shoutbox'), array('view'));
+		$this->allow('member', array('forum', 'shoutbox'), array('add', 'edit', 'delete'));
+		$this->allow('admin', 'admin', 'access');
 
 		$this->allow('owner');
 	}

@@ -8,7 +8,7 @@ namespace CzechClan\UserModule;
 use CzechClan\BasePresenter;
 use CzechClan\Model\UserRepository;
 
-class BaseUserPresenter extends BasePresenter
+abstract class BaseUserPresenter extends BasePresenter
 {
 	/** @var UserRepository @inject */
 	public $userRepository;

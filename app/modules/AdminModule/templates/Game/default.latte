@@ -1,0 +1,38 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Seznam her</h1>
+</div>
+
+<div class="table-responsive">
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>Hra</th>
+				<th>Zkratka <span class="help" title="Bude použita v URL."></span></th>
+				<th>Pořadí <span class="help" title="Použije se při řazení her."></span></th>
+				<th>Aktivní <span class="help" title="Pouze aktivní hry se zobrazí na webu."></span></th>
+				<th>Akce</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach $games as $game}
+				<tr>
+					<td>{$game->name}</td>
+					<td>{$game->slug}</td>
+					<td>{$game->order}</td>
+					<td><span n:class="$game->active ? icon-check : icon-times"></span></td>
+					<td>
+						<span class="btn-group">
+							<a n:href=":Admin:Game:edit, id => $game->slug" class="btn btn-warning btn-xs">
+								<span data-tooltip title="Upravit hru '{$game->name}'" class="icon-pencil"></span>
+							</a>
+							<a n:href="delete!, id => $game->slug" class="btn btn-danger btn-xs">
+								<span data-tooltip title="Odstranit hru '{$game->name}'" class="icon-times"></span>
+							</a>
+						</span>
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>

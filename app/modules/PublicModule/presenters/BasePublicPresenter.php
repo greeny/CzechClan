@@ -7,6 +7,6 @@ namespace CzechClan\PublicModule;
 
 use CzechClan\BasePresenter;
 
-class BasePublicPresenter extends BasePresenter
+abstract class BasePublicPresenter extends BasePresenter
 {
 }
