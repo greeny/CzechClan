@@ -4,7 +4,7 @@
 </div>
 
 <div class="table-responsive">
-	<table class="table table-condensed">
+	<table class="table table-condensed table-striped table-hover">
 		<thead>
 			<tr>
 				<th>Hra</th>
@@ -26,7 +26,8 @@
 							<a n:href=":Admin:Game:edit, id => $game->slug" class="btn btn-warning btn-xs">
 								<span data-tooltip title="Upravit hru '{$game->name}'" class="icon-pencil"></span>
 							</a>
-							<a n:href="delete!, id => $game->slug" class="btn btn-danger btn-xs">
+							<a n:href="delete!, id => $game->slug" class="btn btn-danger btn-xs"
+							   data-confirm="Opravdu chcete odstranit hru '{$game->name}'?">
 								<span data-tooltip title="Odstranit hru '{$game->name}'" class="icon-times"></span>
 							</a>
 						</span>

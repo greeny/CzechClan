@@ -8,7 +8,7 @@ namespace CzechClan\Model;
 use LeanMapper\Repository;
 use Nette\Utils\Paginator;
 
-class BaseRepository extends Repository {
+abstract class BaseRepository extends Repository {
 	public function find($id)
 	{
 		$row = $this->connection->select('*')

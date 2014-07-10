@@ -9,18 +9,31 @@
 				<a href="#" data-toggle="dropdown"><span class="icon-gamepad"></span> Hry <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li n:class="$presenter->isLinkCurrent(':Admin:Game:default') ? active">
-						<a n:href=":Admin:Game:default, slug => general"><span class="icon-list"></span> Seznam her</a>
+						<a n:href=":Admin:Game:default, slug => general"><span class="icon-list icon-fw"></span> Seznam her</a>
 					</li>
 					<li n:class="$presenter->isLinkCurrent(':Admin:Game:add') ? active">
-						<a n:href=":Admin:Game:add, slug => general"><span class="icon-plus"></span> Přidat hru</a>
+						<a n:href=":Admin:Game:add, slug => general"><span class="icon-plus icon-fw"></span> Přidat hru</a>
 					</li>
 					<li class="divider"></li>
 					{foreach $games as $game}
 						<li n:class="$presenter->isLinkCurrent(':Admin:Dashboard:default',
 									array('slug' => $game->slug)) ? active">
-							<a n:href=":Admin:Dashboard:default slug => $game->slug">{$game->name}</a>
+							<a n:href=":Admin:Dashboard:default slug => $game->slug">
+								<span class="icon-fw"></span> {$game->name}
+							</a>
 						</li>
 					{/foreach}
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="#" data-toggle="dropdown"><span class="icon-users"></span> Uživatelé <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li n:class="$presenter->isLinkCurrent(':Admin:User:default') ? active">
+						<a n:href=":Admin:User:default, slug => general"><span class="icon-list icon-fw"></span> Seznam uživatelů</a>
+					</li>
+					<li n:class="$presenter->isLinkCurrent(':Admin:User:add') ? active">
+						<a n:href=":Admin:User:add, slug => general"><span class="icon-plus icon-fw"></span> Přidat uživatele</a>
+					</li>
 				</ul>
 			</li>
 		</ul>

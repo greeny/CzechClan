@@ -36,6 +36,7 @@ class GamePresenter extends BaseGeneralAdminPresenter
 			->setRequired('Prosím zadej zkratku');
 		$form->addText('order', 'Pořadí')
 			->setType('number')
+			->addRule($form::NUMERIC, 'Pořadí musí být číslo.')
 			->addRule($form::MIN, 'Pořadí musí být větší nebo rovno nule.', 0)
 			->setDefaultValue(0);
 		$form->addCheckbox('active', 'Aktivní')

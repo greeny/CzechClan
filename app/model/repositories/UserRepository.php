@@ -40,14 +40,14 @@ class UserRepository extends BaseRepository {
 		if($this->findByNick($data->nick)) {
 			throw new AuthenticationException("Uživatel '$data->nick' již existuje.");
 		}
-		if($this->findByEmail($data->email)) {
-			throw new AuthenticationException("Uživatel s emailem '$data->email' již existuje.");
+		if($u = $this->findByEmail($data->email)) {
+			throw new AuthenticationException("Uživatel s emailem '$data->email' již existuje ('$u->nick').");
 		}
 
 		$user = User::from($data);
 		$user->salt = Random::generate(5, 'A-Za-z0-9');
 		$user->role = 'member';
-		$user->password = PasswordHasher::hashPassword($user->nick, $user->password, $user->salt);
+		$user->fixPassword($user->password);
 		$this->persist($user);
 		return $user;
 	}

@@ -36,7 +36,9 @@
 								{foreach $games as $game}
 									<li n:class="$presenter->isLinkCurrent(':Game:Dashboard:default',
 									array('slug' => $game->slug)) ? active">
-										<a n:href=":Game:Dashboard:default slug => $game->slug">{$game->name}</a>
+										<a n:href=":Game:Dashboard:default slug => $game->slug">
+											<span class="icon-fw"></span> {$game->name}
+										</a>
 									</li>
 								{/foreach}
 							</ul>
@@ -93,8 +95,8 @@
 </body>
 </html>
 {define paginator}
-	<div class="text-center pagination">
-		<ul>
+	<div class="text-center">
+		<ul class="pagination">
 			<li n:class="$paginator->isFirst() ? disabled"><a n:href="this page => $paginator->page-1">&laquo;</a></li>
 			{var $dots = false;}
 			{var $a = array()}

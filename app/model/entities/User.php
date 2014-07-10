@@ -5,6 +5,8 @@
 
 namespace CzechClan\Model;
 
+use CzechClan\Security\PasswordHasher;
+
 /**
  * @property-read int $id
  * @property string $nick
@@ -14,6 +16,10 @@ namespace CzechClan\Model;
  * @property string $role
  * @property bool $verified = FALSE
  */
-class User extends BaseEntity {
-
+class User extends BaseEntity
+{
+	public function fixPassword($password)
+	{
+		$this->password = PasswordHasher::hashPassword($this->nick, $password, $this->salt);
+	}
 }

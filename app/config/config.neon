@@ -26,8 +26,10 @@ services:
 	- CzechClan\Model\Mapper
 	- LeanMapper\DefaultEntityFactory
 
-	- CzechClan\Model\UserRepository
 	- CzechClan\Model\GameRepository
+	- CzechClan\Model\PermissionRepository
+	- CzechClan\Model\RoleRepository
+	- CzechClan\Model\UserRepository
 
 	- CzechClan\Security\Authenticator
 	- CzechClan\Security\Authorizator
