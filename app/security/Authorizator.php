@@ -53,6 +53,21 @@ class Authorizator implements IAuthorizator
 		$this->initialize();
 	}
 
+	public function hasAdminAccess(User $user)
+	{
+		foreach($this->permissions as $permission) {
+			if(in_array($permission->role->name, $user->getRoles())) {
+				return TRUE;
+			}
+		}
+		foreach($user->getRoles() as $role) {
+			if($this->permission->isAllowed($role, 'admin', 'access')) {
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+
 	public function isAdminAllowed(User $user, $game, $resource = NULL)
 	{
 		$roles = $user->getRoles();
@@ -62,7 +77,7 @@ class Authorizator implements IAuthorizator
 		foreach($this->permissions as $permission) {
 			if(in_array($permission->role->name, $roles) && (
 					($permission->game && $permission->game->slug === $game) ||
-					($permission->game === NULL && $game = 'general')
+					($permission->game === NULL && $game === 'general')
 				)) {
 				if(!$resource || ($resource && $permission->resource === $resource)) {
 					return TRUE;
@@ -86,7 +101,6 @@ class Authorizator implements IAuthorizator
 			return $this->permission->isAllowed($role, $resource, $privilege);
 		}
 		$allowed = false;
-		// FIXME how to get game here??
 
 		return $allowed;
 	}
@@ -109,8 +123,9 @@ class Authorizator implements IAuthorizator
 		if($role->parent) {
 			$this->addRole($role->parent);
 		}
-		if($this->permission->hasRole($role->name)) {
-			$this->permission->addRole($role->name, $role->parent->name);
+		if(!$this->permission->hasRole($role->name)) {
+			$parent = $role->parent ? $role->parent->name : NULL;
+			$this->permission->addRole($role->name, $parent);
 			$this->roles[] = $role->name;
 		}
 	}

@@ -17,7 +17,7 @@
 					<li>
 						{var $title = $permission::$specificResources[$permission->resource] . ' pro hru ' . $permission->game->name}
 						<a class="btn btn-danger btn-xs"
-						   n:href="removePermissionFromRole!, game => $permission->game->id, resource => $permission->resource"
+						   n:href="removePermissionFromRole!, permissionId => $permission->id"
 						   data-confirm="Opravdu chcete odebrat oprávnění '{$title}' roli '{$role->name}'?">
 							<span class="icon-times" data-tooltip title="Odebrat oprávnění"></span>
 						</a>
@@ -36,7 +36,7 @@
 					<li>
 						{var $title = $permission::$generalResources[$permission->resource]}
 						<a class="btn btn-danger btn-xs"
-						   n:href="removePermissionFromRole!, game => NULL, resource => $permission->resource"
+						   n:href="removePermissionFromRole!, permissionId => $permission->id"
 						   data-confirm="Opravdu chcete odebrat oprávnění '{$title}' roli '{$role->name}'?">
 							<span class="icon-times" data-tooltip title="Odebrat oprávnění"></span>
 						</a>

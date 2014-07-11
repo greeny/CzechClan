@@ -22,10 +22,20 @@
 						</abbr>
 					</td>
 					<td>
-
+						<span class="btn-group">
+							<a n:href=":Admin:Permission:edit, id => $role->id" class="btn btn-warning btn-xs">
+								<span data-tooltip title="Upravit roli '{$role->name}'" class="icon-pencil"></span>
+							</a>
+							<a n:href="delete!, id => $role->id" class="btn btn-danger btn-xs"
+							   data-confirm="Opravdu chcete odstranit roli '{$role->name}'?">
+								<span data-tooltip title="Odstranit roli '{$role->name}'" class="icon-times"></span>
+							</a>
+						</span>
 					</td>
 				</tr>
 			{/foreach}
 		</tbody>
 	</table>
 </div>
+
+{include paginator, paginator => $paginator}

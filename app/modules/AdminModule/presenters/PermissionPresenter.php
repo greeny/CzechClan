@@ -152,25 +152,25 @@ class PermissionPresenter extends BaseGeneralAdminPresenter
 
 	protected function checkPermissions()
 	{
-		return $this->isAllowed('permission');
+		return $this->isAllowed('role');
 	}
 
-	public function handleRemoveRole($id, $userId)
+	public function handleDelete($id)
 	{
-		$user = $this->userRepository->findByNick($userId);
 		$role = $this->roleRepository->find($id);
-		$name = $role->name;
-		$user->removeFromRoles($role);
-		$this->userRepository->persist($user);
-		$this->flashSuccess("Uživatel '$user->nick' již nemá roli '$name'.");
+		if($role) {
+			$name = $role->name;
+			$this->roleRepository->delete($role);
+			$this->flashSuccess("Role '$name' byla smazána.");
+		}
+		$this->refresh();
 	}
 
-	public function handleRemovePermissionFromRole($game, $resource)
+	public function handleRemovePermissionFromRole($permissionId)
 	{
-		$permission = $this->permissionRepository->findOneBy($this->role, $game, $resource);
+		$permission = $this->permissionRepository->find($permissionId);
 		if($permission) {
-			$this->role->removeFromPermissions($permission);
-			$this->roleRepository->persist($this->role);
+			$this->permissionRepository->delete($permission);
 			$this->flashSuccess('Oprávnění bylo odstraněno.');
 		}
 		$this->refresh();

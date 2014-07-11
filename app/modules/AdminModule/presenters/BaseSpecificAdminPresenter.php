@@ -23,7 +23,7 @@ abstract class BaseSpecificAdminPresenter extends BaseAdminPresenter
 
 	protected function checkSlug()
 	{
-		if(!$this->template->game = $this->game = $this->gameRepository->findBySlug($this->slug)) {
+		if(!$this->template->currentGame = $this->game = $this->gameRepository->findBySlug($this->slug)) {
 			$this->redirect(':Admin:Dashboard:default', array('slug' => NULL));
 		}
 	}

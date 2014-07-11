@@ -37,7 +37,7 @@
 									<li n:class="$presenter->isLinkCurrent(':Game:Dashboard:default',
 									array('slug' => $game->slug)) ? active">
 										<a n:href=":Game:Dashboard:default slug => $game->slug">
-											<span class="icon-fw"></span> {$game->name}
+											{$game->name}
 										</a>
 									</li>
 								{/foreach}
@@ -51,7 +51,7 @@
 							<li n:class="$presenter->isLinkCurrent(':User:Profile:detail', array('id' => NULL)) ? active">
 								<a n:href=":User:Profile:detail"><span class="icon-user"></span> Profil ({$user->identity->nick})</a>
 							</li>
-							<li n:if="$user->isAllowed('admin', 'access')" n:class="$admin = substr($presenter->getName(), 0, 5) === 'Admin' ? active">
+							<li n:if="$presenter->hasUserAdminAccess()" n:class="$admin = substr($presenter->getName(), 0, 5) === 'Admin' ? active">
 								<a n:href=":Admin:Dashboard:default"><span n:class="icon-cog, $admin ? icon-spin"></span> Administrace</a>
 							</li>
 							<li><a n:href="logout!"><span class="icon-sign-out"></span> Odhlásit se</a></li>

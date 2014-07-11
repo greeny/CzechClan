@@ -23,12 +23,11 @@ class PermissionRepository extends BaseRepository
 		return Permission::$specificResources;
 	}
 
-	public function findOneBy(Role $role, Game $game, $resource)
+	public function findOneBy(Role $role, $game, $resource)
 	{
-		$g = $game === NULL ? $game : $game->id;
 		$row = $this->connection->select('*')
 			->from($this->getTable())
-			->where('[game_id] = %i', $g)
+			->where('[game_id] = %i', $game)
 			->where('[role_id] = %i', $role->id)
 			->where('[resource] = %s', $resource)
 			->fetch();

@@ -15,7 +15,7 @@ abstract class BaseAdminPresenter extends BasePresenter
 	public function startup()
 	{
 		parent::startup();
-		if(!$this->user->isLoggedIn() || !$this->user->isAllowed('admin', 'access')) {
+		if(!$this->user->isLoggedIn() || !$this->hasUserAdminAccess()) {
 			$this->flashError('Nemáš právo k přístupu do administrace.');
 			$this->redirect(':Public:Dashboard:default');
 		}

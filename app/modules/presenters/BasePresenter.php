@@ -10,7 +10,6 @@ use CzechClan\Templating\Helpers;
 use CzechClan\Controls\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
-use Nette\Utils\Html;
 
 abstract class BasePresenter extends Presenter
 {
@@ -90,6 +89,11 @@ abstract class BasePresenter extends Presenter
 
 	public function refresh() {
 		$this->redirect('this');
+	}
+
+	public function hasUserAdminAccess()
+	{
+		return $this->authorizator->hasAdminAccess($this->user);
 	}
 
 	protected function createComponentUser()
