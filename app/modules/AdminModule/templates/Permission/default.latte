@@ -1,0 +1,31 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Seznam rolí</h1>
+</div>
+
+<div class="table-responsive">
+	<table class="table table-condensed table-striped table-hover">
+		<thead>
+			<tr>
+				<th>Role</th>
+				<th>Uživatelé</th>
+				<th>Akce</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach $roles as $role}
+				<tr>
+					<td><a n:href="edit, id => $role->id">{$role->name}</a></td>
+					<td>
+						<abbr data-tooltip title="{foreach $role->users as $u}{$u->nick}{sep}, {/sep}{/foreach}">
+							{count($role->users)}
+						</abbr>
+					</td>
+					<td>
+
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>

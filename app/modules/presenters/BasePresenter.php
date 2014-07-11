@@ -2,8 +2,10 @@
 
 namespace CzechClan;
 
+use CzechClan\Controls\User\User;
 use CzechClan\Mail\CzechClanMailer;
 use CzechClan\Model\GameRepository;
+use CzechClan\Security\Authorizator;
 use CzechClan\Templating\Helpers;
 use CzechClan\Controls\Form;
 use Nette\Application\UI\Presenter;
@@ -17,6 +19,9 @@ abstract class BasePresenter extends Presenter
 
 	/** @var GameRepository @inject */
 	public $gameRepository;
+
+	/** @var Authorizator @inject */
+	public $authorizator;
 
 	public function createForm()
 	{
@@ -85,5 +90,10 @@ abstract class BasePresenter extends Presenter
 
 	public function refresh() {
 		$this->redirect('this');
+	}
+
+	protected function createComponentUser()
+	{
+		return new User();
 	}
 }

@@ -17,3 +17,7 @@ body {
 .help + .tooltip {
 	font-weight: normal;
 }
+
+a.no-underline:hover {
+	text-decoration: none;
+}

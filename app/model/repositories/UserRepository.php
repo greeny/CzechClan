@@ -52,4 +52,12 @@ class UserRepository extends BaseRepository {
 		return $user;
 	}
 
+	public function findPairs()
+	{
+		return $this->connection->select('*')
+			->from($this->getTable())
+			->orderBy('[nick] ASC')
+			->fetchPairs('id', 'nick');
+	}
+
 }

@@ -13,4 +13,14 @@ class DashboardPresenter extends BaseAdminPresenter
 			$this->redirect('this', array('slug' => NULL));
 		}
 	}
+
+	protected function checkPermissions()
+	{
+		return TRUE;
+	}
+
+	public function isAllowed($resource = NULL)
+	{
+		return $this->isGameAllowed('general', $resource);
+	}
 }

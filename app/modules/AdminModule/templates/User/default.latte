@@ -9,14 +9,22 @@
 			<tr>
 				<th>Nick</th>
 				<th>Email</th>
+				<th>Primární role</th>
+				<th>Ostatní role</th>
 				<th>Akce</th>
 			</tr>
 		</thead>
 		<tbody>
 			{foreach $users as $u}
 				<tr>
-					<td><a n:href=":User:Profile:detail $u->nick">{$u->nick}</a></td>
+					<td>{control user, $u}</td>
 					<td><a href="mailto: {$u->email}">{$u->email}</a></td>
+					<td>{$u->role}</td>
+					<td>
+						{foreach $u->roles as $role}
+							{$role->name}{sep}, {/sep}
+						{/foreach}
+					</td>
 					<td>
 						<span class="btn-group">
 							<a n:href=":Admin:User:edit, id => $u->nick" class="btn btn-warning btn-xs">

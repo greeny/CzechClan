@@ -13,4 +13,9 @@ abstract class BaseGeneralAdminPresenter extends BaseAdminPresenter
 			$this->redirect(':Admin:Dashboard:default', array('slug' => NULL));
 		}
 	}
+
+	public function isAllowed($resource = NULL)
+	{
+		return $this->isGameAllowed('general', $resource);
+	}
 }

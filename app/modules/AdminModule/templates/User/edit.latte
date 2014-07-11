@@ -4,3 +4,20 @@
 </div>
 
 {control editUserForm}
+
+<h3>Ostatní role</h3>
+
+{control addRoleToUserForm}
+
+<ul>
+	{foreach $u->roles as $role}
+		<li>
+			<a class="btn btn-warning btn-xs" n:href="removeRoleFromUser!, roleId => $role->id"
+			   data-confirm="Opravdu chcete odebrat roli '{$role->name}' užvateli '{$u->nick}'?">
+				<span class="icon-times" data-tooltip
+				      title="Odebrat roli '{$role->name}'<br>užvateli '{$u->nick}'"></span>
+			</a>
+			{$role->name}
+		</li>
+	{/foreach}
+</ul>

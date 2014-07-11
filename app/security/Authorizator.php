@@ -12,6 +12,7 @@ use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\Security\IAuthorizator;
 use Nette\Security\Permission;
+use Nette\Security\User;
 
 class Authorizator implements IAuthorizator
 {
@@ -30,6 +31,9 @@ class Authorizator implements IAuthorizator
 	/** @var Permission */
 	protected $permission;
 
+	/** @var \CzechClan\Model\Permission[] */
+	protected $permissions = array();
+
 	/**
 	 * @param RoleRepository       $roleRepository
 	 * @param PermissionRepository $permissionRepository
@@ -47,6 +51,25 @@ class Authorizator implements IAuthorizator
 		$permission->addResource('admin');
 		$permission->allow('owner');
 		$this->initialize();
+	}
+
+	public function isAdminAllowed(User $user, $game, $resource = NULL)
+	{
+		$roles = $user->getRoles();
+		if(in_array('owner', $roles)) {
+			return TRUE;
+		}
+		foreach($this->permissions as $permission) {
+			if(in_array($permission->role->name, $roles) && (
+					($permission->game && $permission->game->slug === $game) ||
+					($permission->game === NULL && $game = 'general')
+				)) {
+				if(!$resource || ($resource && $permission->resource === $resource)) {
+					return TRUE;
+				}
+			}
+		}
+		return FALSE;
 	}
 
 	/**
@@ -101,7 +124,7 @@ class Authorizator implements IAuthorizator
 
 	protected function addPermission(\CzechClan\Model\Permission $permission)
 	{
-		// TODO
+		$this->permissions[] = $permission;
 	}
 }
  

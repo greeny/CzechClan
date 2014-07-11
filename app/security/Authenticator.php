@@ -5,12 +5,14 @@
 
 namespace CzechClan\Security;
 
+use CzechClan\Model\User;
 use Nette\Object;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
 use Nette\Security\IIdentity;
 use CzechClan\Model\UserRepository;
+use Nette\Utils\ArrayHash;
 
 class Authenticator extends Object implements IAuthenticator {
 
@@ -31,6 +33,7 @@ class Authenticator extends Object implements IAuthenticator {
 	{
 		list($username, $password) = $credentials;
 
+		/** @var User $user */
 		if(!$user = $this->userRepository->findByNick($username)) {
 			throw new AuthenticationException("Uživatel '$username' nenalezen.", self::IDENTITY_NOT_FOUND);
 		}
@@ -43,6 +46,15 @@ class Authenticator extends Object implements IAuthenticator {
 			throw new AuthenticationException("Uživatel nemá ověřený email.", self::NOT_APPROVED);
 		}
 
-		return new Identity($user->id, $user->role, $user->getData());
+		$data = new ArrayHash();
+		$data->nick = $user->nick;
+		$data->email = $user->email;
+
+		$roles = array($user->role);
+		foreach($user->roles as $role) {
+			$roles[] = $role->name;
+		}
+
+		return new Identity($user->id, $roles, $data);
 	}
 }

@@ -1,0 +1,49 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Upravit roli {$role->name}</h1>
+</div>
+
+{control editRoleForm}
+
+<h2>Oprávnění role {$role->name}</h2>
+
+<div class="row">
+	<div class="col-md-6">
+		<h4>Oprávnění pro hru</h4>
+		{control addSpecificPermissionToRoleForm}
+		<ul>
+			{foreach $role->permissions as $permission}
+				{if $permission->game !== NULL}
+					<li>
+						{var $title = $permission::$specificResources[$permission->resource] . ' pro hru ' . $permission->game->name}
+						<a class="btn btn-danger btn-xs"
+						   n:href="removePermissionFromRole!, game => $permission->game->id, resource => $permission->resource"
+						   data-confirm="Opravdu chcete odebrat oprávnění '{$title}' roli '{$role->name}'?">
+							<span class="icon-times" data-tooltip title="Odebrat oprávnění"></span>
+						</a>
+						{$title}
+					</li>
+				{/if}
+			{/foreach}
+		</ul>
+	</div>
+	<div class="col-md-6">
+		<h4>Obecná oprávnění</h4>
+		{control addGeneralPermissionToRoleForm}
+		<ul>
+			{foreach $role->permissions as $permission}
+				{if $permission->game === NULL}
+					<li>
+						{var $title = $permission::$generalResources[$permission->resource]}
+						<a class="btn btn-danger btn-xs"
+						   n:href="removePermissionFromRole!, game => NULL, resource => $permission->resource"
+						   data-confirm="Opravdu chcete odebrat oprávnění '{$title}' roli '{$role->name}'?">
+							<span class="icon-times" data-tooltip title="Odebrat oprávnění"></span>
+						</a>
+						{$title}
+					</li>
+				{/if}
+			{/foreach}
+		</ul>
+	</div>
+</div>

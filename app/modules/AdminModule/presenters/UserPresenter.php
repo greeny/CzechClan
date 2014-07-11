@@ -6,6 +6,7 @@
 namespace CzechClan\AdminModule;
 
 use CzechClan\Controls\Form;
+use CzechClan\Model\RoleRepository;
 use CzechClan\Model\User;
 use CzechClan\Model\UserRepository;
 use Nette\Security\AuthenticationException;
@@ -15,6 +16,9 @@ class UserPresenter extends BaseGeneralAdminPresenter
 {
 	/** @var UserRepository @inject */
 	public $userRepository;
+
+	/** @var RoleRepository @inject */
+	public $roleRepository;
 
 	/** @var User */
 	protected $u;
@@ -51,7 +55,7 @@ class UserPresenter extends BaseGeneralAdminPresenter
 			->addRule($form::EMAIL)
 			->setRequired('Prosím zadej email.');
 		$form->addCheckbox('verified', 'Uživatel má potvrzený email');
-		$form->addSelect('role', 'Role', array(
+		$form->addSelect('role', 'Primární role', array(
 			'quest' => 'Neregistrovaný uživatel',
 			'member' => 'Registrovaný uživatel',
 			'owner' => 'Vlastník'
@@ -104,6 +108,34 @@ class UserPresenter extends BaseGeneralAdminPresenter
 		$this->redirect('default');
 	}
 
+	protected function createComponentAddRoleToUserForm()
+	{
+		$form = $this->createForm();
+		$blacklist = array();
+		foreach($this->u->roles as $role) {
+			$blacklist[] = $role->id;
+		}
+		$form->addSelect('roleId', 'Role', $this->roleRepository->findPairsWithBlacklist($blacklist))
+			->setPrompt(' - Vyber roli - ')
+			->setRequired('Prosím zadej roli.');
+		$form->addSubmit('addRoleToUser', 'Přidat roli');
+		$form->onSuccess[] = $this->addRoleToUserFormSuccess;
+		return $form;
+	}
+
+	public function addRoleToUserFormSuccess(Form $form)
+	{
+		$v = $form->getValues();
+		if($role = $this->roleRepository->find($v->roleId)) {
+			$this->u->addToRoles($role);
+			try {
+				$this->userRepository->persist($this->u);
+			} catch(\DibiDriverException $e) {} // ignore duplicate entry here
+			$this->flashSuccess("Role '$role->name' byla přidána uživateli '{$this->u->nick}'.");
+		}
+		$this->refresh();
+	}
+
 	public function handleDelete($id)
 	{
 		if($user = $this->userRepository->findByNick($id)) {
@@ -112,6 +144,21 @@ class UserPresenter extends BaseGeneralAdminPresenter
 			$this->flashSuccess("Uživatel '$nick' byl smazán.");
 		}
 		$this->refresh();
+	}
+
+	public function handleRemoveRoleFromUser($roleId)
+	{
+		if($role = $this->roleRepository->find($roleId)) {
+			$this->u->removeFromRoles($role);
+			$this->userRepository->persist($this->u);
+			$this->flashSuccess("Role '$role->name' byla odebrána uživateli '{$this->u->nick}'.");
+		}
+		$this->refresh();
+	}
+
+	protected function checkPermissions()
+	{
+		return $this->isAllowed('user');
 	}
 }
  

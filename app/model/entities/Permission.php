@@ -8,13 +8,19 @@ namespace CzechClan\Model;
 /**
  * @property-read int $id
  * @property Role $role m:hasOne
- * @property Game $game m:hasOne
+ * @property Game|NULL $game m:hasOne
  * @property string $resource
- * @property string $privilege
- * @property bool $allow
  */
 class Permission extends BaseEntity
 {
+	public static $generalResources = array(
+		'user' => 'Administrace uživatelů',
+		'role' => 'Administrace rolí',
+		'game' => 'Administrace her',
+	);
 
+	public static $specificResources = array(
+		'article' => 'Administrace článků',
+	);
 }
  

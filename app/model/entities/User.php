@@ -15,6 +15,7 @@ use CzechClan\Security\PasswordHasher;
  * @property string $salt
  * @property string $role
  * @property bool $verified = FALSE
+ * @property Role[] $roles m:hasMany
  */
 class User extends BaseEntity
 {

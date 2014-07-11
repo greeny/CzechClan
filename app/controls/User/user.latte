@@ -1,0 +1,3 @@
+{foreach $u->roles as $role}<a n:if="$role->displayLabel" href="{plink ":User:Role:detail", $role->id}"
+class="no-underline"><span class="{$role->labelClass}">{$role->labelText}</span></a>&nbsp;{/foreach}
+<a href="{plink ":User:Profile:detail", $u->nick}">{$u->nick}</a>

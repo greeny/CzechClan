@@ -5,9 +5,8 @@
 		<a n:href=":Admin:Dashboard:default" class="navbar-brand">Administrace</a>
 
 		<ul class="nav navbar-nav navbar-left">
-			<li class="dropdown">
-				<a href="#" data-toggle="dropdown"><span class="icon-gamepad"></span> Hry <span class="caret"></span></a>
-				<ul class="dropdown-menu">
+			{capture $content}
+				{if $presenter->isGameAllowed('general', 'game')}
 					<li n:class="$presenter->isLinkCurrent(':Admin:Game:default') ? active">
 						<a n:href=":Admin:Game:default, slug => general"><span class="icon-list icon-fw"></span> Seznam her</a>
 					</li>
@@ -15,17 +14,24 @@
 						<a n:href=":Admin:Game:add, slug => general"><span class="icon-plus icon-fw"></span> Přidat hru</a>
 					</li>
 					<li class="divider"></li>
-					{foreach $games as $game}
-						<li n:class="$presenter->isLinkCurrent(':Admin:Dashboard:default',
-									array('slug' => $game->slug)) ? active">
-							<a n:href=":Admin:Dashboard:default slug => $game->slug">
-								<span class="icon-fw"></span> {$game->name}
-							</a>
-						</li>
-					{/foreach}
+				{/if}
+				{foreach $games as $game}
+					<li n:if="$presenter->isGameAllowed($game->slug)"
+					    n:class="$presenter->isLinkCurrent(':Admin:Dashboard:default',
+										array('slug' => $game->slug)) ? active">
+						<a n:href=":Admin:Dashboard:default slug => $game->slug">
+							<span class="icon-fw"></span> {$game->name}
+						</a>
+					</li>
+				{/foreach}
+			{/capture}
+			<li class="dropdown" n:if="trim($content) !== ''">
+				<a href="#" data-toggle="dropdown"><span class="icon-gamepad"></span> Hry <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					{$content|noescape}
 				</ul>
 			</li>
-			<li class="dropdown">
+			<li class="dropdown" n:if="$presenter->isGameAllowed('general', 'user')">
 				<a href="#" data-toggle="dropdown"><span class="icon-users"></span> Uživatelé <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li n:class="$presenter->isLinkCurrent(':Admin:User:default') ? active">
@@ -33,6 +39,17 @@
 					</li>
 					<li n:class="$presenter->isLinkCurrent(':Admin:User:add') ? active">
 						<a n:href=":Admin:User:add, slug => general"><span class="icon-plus icon-fw"></span> Přidat uživatele</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dropdown" n:if="$presenter->isGameAllowed('general', 'permission')">
+				<a href="#" data-toggle="dropdown"><span class="icon-lock"></span> Oprávnění <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li n:class="$presenter->isLinkCurrent(':Admin:Permission:default') ? active">
+						<a n:href=":Admin:Permission:default, slug => general"><span class="icon-list icon-fw"></span> Seznam rolí</a>
+					</li>
+					<li n:class="$presenter->isLinkCurrent(':Admin:Permission:add') ? active">
+						<a n:href=":Admin:Permission:add, slug => general"><span class="icon-plus icon-fw"></span> Přidat roli</a>
 					</li>
 				</ul>
 			</li>

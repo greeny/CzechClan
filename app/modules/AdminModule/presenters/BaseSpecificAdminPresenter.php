@@ -12,10 +12,29 @@ abstract class BaseSpecificAdminPresenter extends BaseAdminPresenter
 	/** @var Game */
 	protected $game;
 
+	public function startup()
+	{
+		parent::startup();
+		if(!$this->checkGamePermissions()) {
+			$this->flashError('Nemáš přístup k administraci této hry.');
+			$this->redirect(':Admin:Dashboard:default');
+		}
+	}
+
 	protected function checkSlug()
 	{
 		if(!$this->template->game = $this->game = $this->gameRepository->findBySlug($this->slug)) {
 			$this->redirect(':Admin:Dashboard:default', array('slug' => NULL));
 		}
+	}
+
+	public function isAllowed($resource = NULL)
+	{
+		return $this->isGameAllowed($this->game->slug, $resource);
+	}
+
+	protected function checkGamePermissions()
+	{
+		return $this->isGameAllowed($this->game->slug);
 	}
 }

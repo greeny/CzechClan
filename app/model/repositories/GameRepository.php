@@ -29,8 +29,19 @@ class GameRepository extends BaseRepository
 		return $row ? $this->createEntity($row) : NULL;
 	}
 
+	public function findPairs()
+	{
+		return $this->connection->select('*')
+			->from($this->getTable())
+			->orderBy('[name] ASC')
+			->fetchPairs('id', 'name');
+	}
+
 	public function addGame(ArrayHash $data)
 	{
+		if(in_array($data->slug, array('general', 'user', 'admin'))) {
+			throw new RepositoryException("Zkratka '$data->slug' nemůže být použita.");
+		}
 		if($this->findBySlug($data->slug)) {
 			throw new RepositoryException("Hra se zkratkou '$data->slug' již existuje.");
 		}

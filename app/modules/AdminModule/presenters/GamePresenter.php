@@ -97,4 +97,9 @@ class GamePresenter extends BaseGeneralAdminPresenter
 		}
 		$this->refresh();
 	}
+
+	protected function checkPermissions()
+	{
+		return $this->isAllowed('game');
+	}
 }
