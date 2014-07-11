@@ -9,10 +9,13 @@ class RoleRepository extends BaseRepository
 {
 	public function findPairsWithBlacklist(array $ids)
 	{
-		return $this->connection->select('*')
-			->from($this->getTable())
-			->where('[id] NOT IN %in', $ids)
-			->orderBy('[name] ASC')
+
+		$sel = $this->connection->select('*')
+			->from($this->getTable());
+		if($ids !== array()) {
+			$sel->where('[id] NOT IN %in', $ids);
+		}
+		return $sel->orderBy('[name] ASC')
 			->fetchPairs('id', 'name');
 	}
 }
