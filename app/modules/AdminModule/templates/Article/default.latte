@@ -1,0 +1,29 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Články</h1>
+</div>
+
+<div class="table-responsive">
+	<table class="table table-condensed table-stripped table-hover">
+		<thead>
+			<tr>
+				<th>Článek</th>
+				<th>Autor</th>
+				<th>Kategorie</th>
+				<th>Datum vydání</th>
+				<th>Akce</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach $articles as $article}
+				<tr>
+					<td>{$article->title}</td>
+					<td>{control user, $article->author}</td>
+					<td>{$article->category->name}</td>
+					<td>{$article->published|time}</td>
+					<td></td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
