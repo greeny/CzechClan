@@ -18,9 +18,6 @@ class PermissionPresenter extends BaseGeneralAdminPresenter
 	/** @var RoleRepository @inject */
 	public $roleRepository;
 
-	/** @var UserRepository @inject */
-	public $userRepository;
-
 	/** @var PermissionRepository @inject */
 	public $permissionRepository;
 

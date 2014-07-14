@@ -10,6 +10,4 @@ use CzechClan\Model\UserRepository;
 
 abstract class BaseUserPresenter extends BasePresenter
 {
-	/** @var UserRepository @inject */
-	public $userRepository;
 }

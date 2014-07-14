@@ -14,9 +14,6 @@ use Nette\Utils\Paginator;
 
 class UserPresenter extends BaseGeneralAdminPresenter
 {
-	/** @var UserRepository @inject */
-	public $userRepository;
-
 	/** @var RoleRepository @inject */
 	public $roleRepository;
 

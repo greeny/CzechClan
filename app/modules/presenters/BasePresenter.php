@@ -5,6 +5,7 @@ namespace CzechClan;
 use CzechClan\Controls\User\User;
 use CzechClan\Mail\CzechClanMailer;
 use CzechClan\Model\GameRepository;
+use CzechClan\Model\UserRepository;
 use CzechClan\Security\Authorizator;
 use CzechClan\Templating\Helpers;
 use CzechClan\Controls\Form;
@@ -18,6 +19,9 @@ abstract class BasePresenter extends Presenter
 
 	/** @var GameRepository @inject */
 	public $gameRepository;
+
+	/** @var UserRepository @inject */
+	public $userRepository;
 
 	/** @var Authorizator @inject */
 	public $authorizator;
