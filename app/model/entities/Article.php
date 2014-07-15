@@ -9,6 +9,7 @@ namespace CzechClan\Model;
  * @property-read int $id
  * @property User $author m:hasOne
  * @property Category|NULL $category m:hasOne
+ * @property Game $game m:hasOne
  * @property string $title
  * @property string $content
  * @property string $slug
@@ -18,4 +19,3 @@ class Article extends BaseEntity
 {
 
 }
- 

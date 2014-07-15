@@ -34,17 +34,23 @@
 				</ul>
 			</li>
 			{ifset $currentGame}
-				<li class="dropdown" n:if="$presenter->isGameAllowed($currentGame->slug, 'article')">
-					<a href="#" data-toggle="dropdown"><span class="icon-file-text-o"></span> Články <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li n:class="$presenter->isLinkCurrent(':Admin:Article:default') ? active">
-							<a n:href=":Admin:Article:default"><span class="icon-list icon-fw"></span> Seznam článků</a>
-						</li>
-						<li n:class="$presenter->isLinkCurrent(':Admin:Article:add') ? active">
-							<a n:href=":Admin:Article:add"><span class="icon-plus icon-fw"></span> Přidat článek</a>
-						</li>
-					</ul>
-				</li>
+                <li class="dropdown" n:if="$presenter->isGameAllowed($currentGame->slug, 'article')">
+                    <a href="#" data-toggle="dropdown"><span class="icon-file-text-o"></span> Články <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li n:class="$presenter->isLinkCurrent(':Admin:Article:default') ? active">
+                            <a n:href=":Admin:Article:default"><span class="icon-list icon-fw"></span> Seznam článků</a>
+                        </li>
+                        <li n:class="$presenter->isLinkCurrent(':Admin:Article:add') ? active">
+                            <a n:href=":Admin:Article:add"><span class="icon-plus icon-fw"></span> Přidat článek</a>
+                        </li>
+                        <li n:class="$presenter->isLinkCurrent(':Admin:Category:default') ? active">
+                            <a n:href=":Admin:Category:default"><span class="icon-list icon-fw"></span> Seznam kategorií</a>
+                        </li>
+                        <li n:class="$presenter->isLinkCurrent(':Admin:Category:add') ? active">
+                            <a n:href=":Admin:Category:add"><span class="icon-plus icon-fw"></span> Přidat kategorii</a>
+                        </li>
+                    </ul>
+                </li>
 			{else}
 				{capture $content}
 					{if $presenter->isGameAllowed('general', 'game')}

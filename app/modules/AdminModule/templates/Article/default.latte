@@ -19,7 +19,7 @@
 				<tr>
 					<td><a n:href=":Game:Article:detail $article->slug, slug => $currentGame->slug">{$article->title}</a></td>
 					<td>{control user, $article->author}</td>
-					<td>{if $article->category}{$article->category->name}{else}-{/if}</td>
+					<td>{$article->category ? $article->category->name : '-'}</td>
 					<td>{$article->published|time}</td>
 					<td>
 						<span class="btn-group">
@@ -37,3 +37,5 @@
 		</tbody>
 	</table>
 </div>
+
+{include paginator, paginator => $paginator}

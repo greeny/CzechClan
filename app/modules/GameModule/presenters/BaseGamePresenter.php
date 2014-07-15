@@ -23,6 +23,6 @@ abstract class BaseGamePresenter extends BasePresenter
 	public function startup()
 	{
 		parent::startup();
-		$this->template->game = $this->game = $this->gameRepository->findBySlug($this->slug);
+		$this->template->currentGame = $this->game = $this->gameRepository->findBySlug($this->slug);
 	}
 }

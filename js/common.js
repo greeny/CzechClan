@@ -5,4 +5,7 @@ $(function(){
     $("[data-confirm]").on('click', function(){
         return confirm($(this).data('confirm'));
     });
+    $('li.disabled a').on('click', function(e) {
+        e.preventDefault();
+    });
 });

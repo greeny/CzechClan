@@ -25,14 +25,14 @@ class ArticlePresenter extends BaseSpecificAdminPresenter
 	public function renderDefault($page = 1)
 	{
 		$paginator = new Paginator();
-		$paginator->itemCount = $this->articleRepository->countAll();
+		$paginator->itemCount = $this->articleRepository->countByGame($this->game);
 		$paginator->itemsPerPage = 20;
 		$paginator->page = $page;
 		if($paginator->page !== $page) {
 			$this->redirect('this', array('page' => $paginator->page));
 		}
 		$this->template->paginator = $paginator;
-		$this->template->articles = $this->articleRepository->findOrderedByPage($paginator, '[published] DESC');
+		$this->template->articles = $this->articleRepository->findByGameOrderedByPage($this->game, $paginator, '[published] DESC');
 	}
 
 	public function actionEdit($id)
@@ -48,7 +48,7 @@ class ArticlePresenter extends BaseSpecificAdminPresenter
 		$form->addTextArea('content', 'Obsah')
 			->setRequired('Prosím zadej obsah.')
 			->setAttribute('class', 'ckeditor');
-		$form->addSelect('category', 'Kategorie', $this->categoryRepository->fetchPairs())
+		$form->addSelect('category', 'Kategorie', $this->categoryRepository->fetchPairsByGame($this->game))
 			->setPrompt('Žádná kategorie');
 		return $form;
 	}
@@ -67,6 +67,7 @@ class ArticlePresenter extends BaseSpecificAdminPresenter
 		$v->author = $this->userRepository->find($this->user->id);
 		$v->category = $this->categoryRepository->find($v->category);
 		$v->published = time();
+		$v->game = $this->game;
 		$this->articleRepository->fixSlug($article = Article::from($v));
 		$this->articleRepository->persist($article);
 		$this->flashSuccess('Článek byl vytvořen.');
@@ -109,4 +110,3 @@ class ArticlePresenter extends BaseSpecificAdminPresenter
 		return $this->isAllowed('article');
 	}
 }
- 

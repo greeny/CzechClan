@@ -1,0 +1,37 @@
+{block content}
+<div class="page-header">
+    <h1 n:inner-block="title">Kategorie</h1>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-condensed table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>Kategorie</th>
+            <th>Počet článků v kategorii</th>
+            <th>Akce</th>
+        </tr>
+        </thead>
+        <tbody>
+        {foreach $categories as $category}
+            <tr>
+                <td><a n:href=":Game:Category:detail $category->slug, slug => $currentGame->slug">{$category->name}</a></td>
+                <td>{count($category->articles)}</td>
+                <td>
+                    <span class="btn-group">
+                        <a n:href=":Admin:Category:edit, id => $category->slug" class="btn btn-warning btn-xs">
+                            <span data-tooltip title="Upravit kategorii '{$category->name}'" class="icon-pencil"></span>
+                        </a>
+                        <a n:href="delete!, id => $category->slug" class="btn btn-danger btn-xs"
+                           data-confirm="Opravdu chcete odstranit kategorii '{$category->name}'?">
+                            <span data-tooltip title="Odstranit kategorii '{$category->name}'" class="icon-times"></span>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+
+{include paginator, paginator => $paginator}

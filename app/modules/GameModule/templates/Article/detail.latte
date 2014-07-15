@@ -1,0 +1,18 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Článek: {$article->title}</h1>
+</div>
+
+<span class="icon-user icon-fw"></span> {control user, $article->author}<br>
+<span class="icon-clock-o icon-fw"></span> {$article->published|time}<br>
+<span class="icon-tag icon-fw"></span>
+{if $article->category}
+	{$article->category}
+{else}
+	-
+{/if}<br>
+<span class="icon-comments icon-fw"></span> 0<br>
+
+<hr>
+
+{$article->content|noescape}

@@ -21,3 +21,7 @@ body {
 a.no-underline:hover {
 	text-decoration: none;
 }
+
+.tooltip-inner {
+	max-width: none;
+}
