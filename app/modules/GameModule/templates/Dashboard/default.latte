@@ -2,3 +2,24 @@
 <div class="page-header">
 	<h1>Nástěnka</h1>
 </div>
+
+<div class="row">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+		<div class="well">
+			<h2>Nejnovější článek</h2>
+			<h3><a n:href="Article:detail $newestArticle->slug">{$newestArticle->title}</a></h3>
+			<span class="icon-user icon-fw"></span> {control user, $newestArticle->author}<br>
+			<span class="icon-clock-o icon-fw"></span> {$newestArticle->published|time}<br>
+			<span class="icon-tag icon-fw"></span>
+			{if $newestArticle->category}
+			{$newestArticle->category}
+			{else}
+			-
+			{/if}<br>
+			<span class="icon-comments icon-fw"></span> 0<br>
+			<hr>
+			{$newestArticle->content|striptags|truncate:150|noescape}
+		</div>
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
+</div>

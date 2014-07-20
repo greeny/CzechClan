@@ -15,7 +15,7 @@
 	{/if}<br>
 	<span class="icon-comments icon-fw"></span> 0<br>
 	<hr>
-	{$article->content|striptags|truncate:150}
+	{$article->content|striptags|truncate:150|noescape}
 </div>
 
 {include paginator, paginator => $paginator}

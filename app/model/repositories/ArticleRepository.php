@@ -50,6 +50,16 @@ class ArticleRepository extends BaseRepository
 		);
 	}
 
+	public function findNewest(Game $game)
+	{
+		$row = $this->connection->select('*')
+				->from($this->getTable())
+				->where('[game_id] = %i', $game->id)
+				->orderBy('[published] DESC')
+				->fetch();
+		return $row ? $this->createEntity($row) : NULL;
+	}
+
 	public function findByGameOrderedByPage(Game $game, Paginator $paginator, $orderBy)
 	{
 		return $this->createEntities(
