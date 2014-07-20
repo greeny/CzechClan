@@ -12,7 +12,7 @@
 <ul>
 	{foreach $u->roles as $role}
 		<li>
-			<a class="btn btn-warning btn-xs" n:href="removeRoleFromUser!, roleId => $role->id"
+			<a class="btn btn-danger btn-xs" n:href="removeRoleFromUser!, roleId => $role->id"
 			   data-confirm="Opravdu chcete odebrat roli '{$role->name}' užvateli '{$u->nick}'?">
 				<span class="icon-times" data-tooltip
 				      title="Odebrat roli '{$role->name}'<br>užvateli '{$u->nick}'"></span>

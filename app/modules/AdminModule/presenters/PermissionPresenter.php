@@ -48,11 +48,19 @@ class PermissionPresenter extends BaseGeneralAdminPresenter
 		$form->addText('name', 'Jméno')
 			->setRequired('Prosím zadej jméno.');
 		$form->addCheckbox('displayLabel', 'Zobrazit odznak u jména');
-		$form->addText('labelClass', 'CSS třída odznaku')
-			->addCondition($form::FILLED)
-			->addRule($form::FILLED, 'Prosím zadej CSS třídu odznaku');
+		$form->addSelect('labelClass', 'Barva odznaku', array(
+			'' => 'Žádná',
+			'label label-default' => 'Šedá',
+			'label label-info' => 'Světle modrá',
+			'label label-primary' => 'Tmavě modrá',
+			'label label-success' => 'Zelená',
+			'label label-warning' => 'Žlutá',
+			'label label-danger' => 'Červená',
+		))
+			->addConditionOn($form['displayLabel'], $form::EQUAL, TRUE)
+			->addRule($form::FILLED, 'Prosím zadej barvu odznaku');
 		$form->addText('labelText', 'Text odznaku')
-			->addCondition($form::FILLED)
+			->addConditionOn($form['displayLabel'], $form::EQUAL, TRUE)
 			->addRule($form::FILLED, 'Prosím zadej text odznaku');
 		return $form;
 	}
@@ -173,4 +181,3 @@ class PermissionPresenter extends BaseGeneralAdminPresenter
 		$this->refresh();
 	}
 }
- 
