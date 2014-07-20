@@ -8,6 +8,18 @@
 		<li n:class="$presenter->isLinkCurrent(':Game:Dashboard:rules') ? active">
 			<a n:href="Dashboard:rules"><span class="icon-exclamation"></span> Pravidla</a>
 		</li>
+		<li n:class="$presenter->isLinkCurrent(':Game:Information:*') ? active, dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="icon-info"></span> Informace <span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				{foreach $informations as $information}
+					<li n:class="$presenter->isLinkCurrent(':Game:Information:detail', array('id' => $information->slug)) ? active">
+						<a n:href="Information:detail $information->slug">{$information->title}</a>
+					</li>
+				{/foreach}
+			</ul>
+		</li>
 		<li n:class="$presenter->isLinkCurrent(':Game:Article:*') ? active">
 			<a n:href="Article:default"><span class="icon-file-text-o"></span> Články</a>
 		</li>
@@ -19,13 +31,6 @@
 		</li>
 		<li n:class="disabled">
 			<a n:href="Article:default"><span class="icon-"></span> Admin team</a>
-		</li>
-		<li n:class="disabled, dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-				<span class="icon-question"></span> Další <span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-			</ul>
 		</li>
 	</ul>
 {/block}

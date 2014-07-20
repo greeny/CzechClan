@@ -8,6 +8,7 @@ namespace Tempeus\GameModule;
 use Tempeus\BasePresenter;
 use Tempeus\Model\Game;
 use Tempeus\Model\GameRepository;
+use Tempeus\Model\InformationRepository;
 
 abstract class BaseGamePresenter extends BasePresenter
 {
@@ -17,6 +18,9 @@ abstract class BaseGamePresenter extends BasePresenter
 	/** @var GameRepository @inject */
 	public $gameRepository;
 
+	/** @var InformationRepository @inject */
+	public $informationRepository;
+
 	/** @var Game */
 	protected $game;
 
@@ -24,5 +28,6 @@ abstract class BaseGamePresenter extends BasePresenter
 	{
 		parent::startup();
 		$this->template->currentGame = $this->game = $this->gameRepository->findBySlug($this->slug);
+		$this->template->informations = $this->informationRepository->findAllByGame($this->game);
 	}
 }

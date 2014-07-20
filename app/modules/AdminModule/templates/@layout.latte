@@ -51,6 +51,17 @@
                         </li>
                     </ul>
                 </li>
+                <li class="dropdown" n:if="$presenter->isGameAllowed($currentGame->slug, 'information')">
+                    <a href="#" data-toggle="dropdown"><span class="icon-info"></span> Informace <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li n:class="$presenter->isLinkCurrent(':Admin:Information:default') ? active">
+                            <a n:href=":Admin:Information:default"><span class="icon-list icon-fw"></span> Seznam informací</a>
+                        </li>
+                        <li n:class="$presenter->isLinkCurrent(':Admin:Information:add') ? active">
+                            <a n:href=":Admin:Information:add"><span class="icon-plus icon-fw"></span> Přidat informaci</a>
+                        </li>
+                    </ul>
+                </li>
 			{else}
 				{capture $content}
 					{if $presenter->isGameAllowed('general', 'game')}

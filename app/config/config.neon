@@ -29,6 +29,7 @@ services:
 	- Tempeus\Model\ArticleRepository
 	- Tempeus\Model\CategoryRepository
 	- Tempeus\Model\GameRepository
+	- Tempeus\Model\InformationRepository
 	- Tempeus\Model\PermissionRepository
 	- Tempeus\Model\RoleRepository
 	- Tempeus\Model\UserRepository

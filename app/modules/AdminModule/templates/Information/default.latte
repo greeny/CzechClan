@@ -1,0 +1,37 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Seznam informací</h1>
+</div>
+
+<div class="table-responsive">
+	<table class="table table-condensed table-stripped table-hover">
+		<thead>
+			<tr>
+				<th>Název</th>
+				<th>Pořadí</th>
+				<th>Aktivní</th>
+				<th>Akce</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach $informations as $information}
+				<tr>
+					<td>{$information->title}</td>
+					<td>{$information->order}</td>
+					<td><span n:class="$information->active ? icon-check : icon-times"></span></td>
+					<td>
+						<span class="btn-group">
+							<a n:href=":Admin:Information:edit, id => $information->slug" class="btn btn-warning btn-xs">
+								<span data-tooltip title="Upravit informaci '{$information->title}'" class="icon-pencil"></span>
+							</a>
+							<a n:href="delete!, id => $information->slug" class="btn btn-danger btn-xs"
+							   data-confirm="Opravdu chcete odstranit informaci '{$information->title}'?">
+								<span data-tooltip title="Odstranit informaci '{$information->title}'" class="icon-times"></span>
+							</a>
+						</span>
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>

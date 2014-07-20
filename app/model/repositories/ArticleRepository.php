@@ -24,7 +24,7 @@ class ArticleRepository extends BaseRepository
 		$slug = $article->slug = Strings::webalize($article->title);
 		$i = 1;
 		while($a = $this->findBySlug($article->slug)) {
-			if(!$article->isDetached() && $a->id !== $article->id) {
+			if(!$article->isDetached() && $a->id === $article->id) {
 				break;
 			}
 			$article->slug = $slug . '-' . $i++;
