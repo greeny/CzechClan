@@ -9,6 +9,7 @@ namespace Tempeus\Model;
  * @property-read int $id
  * @property string $name
  * @property string $slug
+ * @property string $rules
  * @property int $order
  * @property bool $active
  */

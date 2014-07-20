@@ -1,2 +1,24 @@
 {extends '../../templates/@layout.latte'}
 {block titlePrefix}{$currentGame->name} &middot; {/block}
+{block topPanel}
+	<ul class="nav nav-tabs nav-justified">
+		<li n:class="$presenter->isLinkCurrent(':Game:Dashboard:default') ? active">
+			<a n:href="Dashboard:default"><span class="icon-th-large"></span> Nástěnka</a>
+		</li>
+		<li n:class="$presenter->isLinkCurrent(':Game:Dashboard:rules') ? active">
+			<a n:href="Dashboard:rules"><span class="icon-exclamation"></span> Pravidla</a>
+		</li>
+		<li n:class="$presenter->isLinkCurrent(':Game:Article:*') ? active">
+			<a n:href="Article:default"><span class="icon-file-text-o"></span> Články</a>
+		</li>
+		<li n:class="disabled">
+			<a n:href="Article:default"><span class="icon-"></span> Fórum</a>
+		</li>
+		<li n:class="disabled">
+			<a n:href="Article:default"><span class="icon-"></span> Tickety</a>
+		</li>
+		<li n:class="disabled">
+			<a n:href="Article:default"><span class="icon-"></span> Admin team</a>
+		</li>
+	</ul>
+{/block}
