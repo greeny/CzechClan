@@ -1,6 +1,65 @@
 {block content}
 <div class="page-header">
-	<h1 n:inner-block="title">Nástěnka</h1>
+	<h1 n:inner-block="title">Hlavní stránka administrace</h1>
 </div>
 
-<b>Verze stránek</b>: zatím neverzováno
+<div class="row">
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" n:if="$presenter->isGameAllowed('general', 'game')">
+		<div class="well well-sm">
+			<h3 class="text-center">Stránky</h3 class="text-center">
+			<p>Administrace článků, fóra, apod. patřícím k určité hře.</p>
+			<div class="text-center">
+				<span class="btn-group-vertical">
+					{foreach $games as $game}
+						<a n:href=":Admin:Overview:default slug => $game->slug" class="btn btn-default btn-xs"
+							m:if="$presenter->isGameAllowed($game->slug)">
+							{$game->name}
+						</a>
+					{/foreach}
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" n:if="$presenter->isGameAllowed('general', 'game')">
+		<div class="well well-sm">
+			<h3 class="text-center">Hry</h3 class="text-center">
+			<p>Administrace her, které CzechClan nabízí.</p>
+			<div class="text-center">
+				<span class="btn-group">
+					<a n:href=":Admin:Game:default slug => general" class="btn btn-default btn-xs">
+						<span class="icon-list"></span> Seznam</a>
+					<a n:href=":Admin:Game:add slug => general" class="btn btn-default btn-xs">
+						<span class="icon-plus"></span> Přidat</a>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" n:if="$presenter->isGameAllowed('general', 'user')">
+		<div class="well well-sm">
+			<h3 class="text-center">Uživatelé</h3 class="text-center">
+			<p>Administrace uživatelů registrovaných na stránkách CzechClanu.</p>
+			<div class="text-center">
+				<span class="btn-group">
+					<a n:href=":Admin:User:default slug => general" class="btn btn-default btn-xs">
+						<span class="icon-list"></span> Seznam</a>
+					<a n:href=":Admin:User:add slug => general" class="btn btn-default btn-xs">
+						<span class="icon-plus"></span> Přidat</a>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" n:if="$presenter->isGameAllowed('general', 'role')">
+		<div class="well well-sm">
+			<h3 class="text-center">Role</h3 class="text-center">
+			<p>Administrace rolí, které lze přiřadit uživatelům, aby získali přístup do částí administrace.</p>
+			<div class="text-center">
+				<span class="btn-group">
+					<a n:href=":Admin:Permission:default slug => general" class="btn btn-default btn-xs">
+						<span class="icon-list"></span> Seznam</a>
+					<a n:href=":Admin:Permission:add slug => general" class="btn btn-default btn-xs">
+						<span class="icon-plus"></span> Přidat</a>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

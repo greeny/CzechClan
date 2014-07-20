@@ -1,4 +1,29 @@
+{block title}Nástěnka{/block}
 {block content}
 <div class="page-header">
-	<h1 n:inner-block="title">Nástěnka</h1>
+	<h1>{$currentGame->name} &middot; Nástěnka</h1>
+</div>
+
+<div class="row">
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" n:if="$presenter->isAllowed('article')">
+		<div class="well well-sm">
+			<h3 class="text-center">Články</h3 class="text-center">
+			<p>Administrace článků a kategorií.</p>
+			<div class="text-center">
+				<span class="btn-group">
+					<a n:href=":Admin:Article:default" class="btn btn-default btn-xs">
+						<span class="icon-list"></span> Seznam článků</a>
+					<a n:href=":Admin:Article:add" class="btn btn-default btn-xs">
+						<span class="icon-plus"></span> Přidat článek</a>
+				</span>
+				<br>
+				<span class="btn-group">
+					<a n:href=":Admin:Category:default" class="btn btn-default btn-xs">
+						<span class="icon-list"></span> Seznam kategorií</a>
+					<a n:href=":Admin:Category:add" class="btn btn-default btn-xs">
+						<span class="icon-plus"></span> Přidat kategorii</a>
+				</span>
+			</div>
+		</div>
+	</div>
 </div>

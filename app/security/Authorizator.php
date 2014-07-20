@@ -142,4 +142,3 @@ class Authorizator implements IAuthorizator
 		$this->permissions[] = $permission;
 	}
 }
- 
