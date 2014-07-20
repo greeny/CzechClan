@@ -23,11 +23,11 @@
 					</li>
 					<li class="divider"></li>
 					<li class="dropdown-header">Jiná hra</li>
-					{foreach $games as $game}
-						<li n:if="$presenter->isGameAllowed($game->slug)"
-						    n:class="isset($currentGame) && $currentGame->slug === $game->slug ? active">
-							<a n:href=":Admin:Overview:default slug => $game->slug">
-								{$game->name}
+					{foreach $games as $g}
+						<li n:if="$presenter->isGameAllowed($g->slug)"
+						    n:class="isset($currentGame) && $currentGame->slug === $g->slug ? active">
+							<a n:href=":Admin:Overview:default slug => $g->slug">
+								{$g->name}
 							</a>
 						</li>
 					{/foreach}
@@ -62,11 +62,11 @@
 						</li>
 						<li class="divider"></li>
 					{/if}
-					{foreach $games as $game}
-						<li n:if="$presenter->isGameAllowed($game->slug)"
-						    n:class="isset($currentGame) && $currentGame->slug === $game->slug ? active">
-							<a n:href=":Admin:Overview:default slug => $game->slug">
-								{$game->name}
+					{foreach $games as $g}
+						<li n:if="$presenter->isGameAllowed($g->slug)"
+						    n:class="isset($currentGame) && $currentGame->slug === $g->slug ? active">
+							<a n:href=":Admin:Overview:default slug => $g->slug">
+								{$g->name}
 							</a>
 						</li>
 					{/foreach}

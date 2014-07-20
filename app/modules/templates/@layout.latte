@@ -36,11 +36,11 @@
 								$currentGame->name : 'Hry Tempeuse'} <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								{foreach $games as $game}
+								{foreach $games as $g}
 									<li n:class="$presenter->isLinkCurrent(':Game:Dashboard:default',
-									array('slug' => $game->slug)) ? active">
-										<a n:href=":Game:Dashboard:default slug => $game->slug">
-											{$game->name}
+									array('slug' => $g->slug)) ? active">
+										<a n:href=":Game:Dashboard:default slug => $g->slug">
+											{$g->name}
 										</a>
 									</li>
 								{/foreach}
