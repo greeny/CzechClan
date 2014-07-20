@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\AdminModule;
+namespace Tempeus\AdminModule;
 
 class OverviewPresenter extends BaseSpecificAdminPresenter
 {
@@ -12,4 +12,3 @@ class OverviewPresenter extends BaseSpecificAdminPresenter
 		return TRUE;
 	}
 }
- 

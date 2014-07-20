@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Model;
+namespace Tempeus\Model;
 
 class PermissionRepository extends BaseRepository
 {
@@ -34,4 +34,3 @@ class PermissionRepository extends BaseRepository
 		return $row ? $this->createEntity($row) : NULL;
 	}
 }
- 

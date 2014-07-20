@@ -3,14 +3,14 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\AdminModule;
+namespace Tempeus\AdminModule;
 
-use CzechClan\Controls\Form;
-use CzechClan\Model\Permission;
-use CzechClan\Model\PermissionRepository;
-use CzechClan\Model\Role;
-use CzechClan\Model\RoleRepository;
-use CzechClan\Model\UserRepository;
+use Tempeus\Controls\Form;
+use Tempeus\Model\Permission;
+use Tempeus\Model\PermissionRepository;
+use Tempeus\Model\Role;
+use Tempeus\Model\RoleRepository;
+use Tempeus\Model\UserRepository;
 use Nette\Utils\Paginator;
 
 class PermissionPresenter extends BaseGeneralAdminPresenter

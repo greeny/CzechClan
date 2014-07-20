@@ -3,12 +3,12 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Mail;
+namespace Tempeus\Mail;
 
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 
-class CzechClanMailer extends SendmailMailer
+class TempeusMailer extends SendmailMailer
 {
 	protected $fromEmail;
 

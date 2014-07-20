@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Model;
+namespace Tempeus\Model;
 
 class RoleRepository extends BaseRepository
 {
@@ -19,4 +19,3 @@ class RoleRepository extends BaseRepository
 			->fetchPairs('id', 'name');
 	}
 }
- 

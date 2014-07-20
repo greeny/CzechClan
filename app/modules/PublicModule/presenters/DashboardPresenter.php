@@ -1,6 +1,6 @@
 <?php
 
-namespace CzechClan\PublicModule;
+namespace Tempeus\PublicModule;
 
 class DashboardPresenter extends BasePublicPresenter
 {

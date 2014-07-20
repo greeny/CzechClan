@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Controls\User;
+namespace Tempeus\Controls\User;
 
 use Nette\Application\UI\Control;
 
@@ -16,4 +16,3 @@ class User extends Control
 		$this->template->render();
 	}
 }
- 

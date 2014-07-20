@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\AdminModule;
+namespace Tempeus\AdminModule;
 
 class DashboardPresenter extends BaseAdminPresenter
 {

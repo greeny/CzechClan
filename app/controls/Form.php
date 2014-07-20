@@ -2,7 +2,7 @@
 /**
  * @author Tomáš Blatný
  */
-namespace CzechClan\Controls;
+namespace Tempeus\Controls;
 
 use Nette\Application\UI\Form as NForm;
 use Nette\Forms\Controls;

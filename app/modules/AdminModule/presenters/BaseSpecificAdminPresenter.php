@@ -3,9 +3,9 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\AdminModule;
+namespace Tempeus\AdminModule;
 
-use CzechClan\Model\Game;
+use Tempeus\Model\Game;
 
 abstract class BaseSpecificAdminPresenter extends BaseAdminPresenter
 {

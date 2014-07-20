@@ -3,9 +3,9 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\PublicModule;
+namespace Tempeus\PublicModule;
 
-use CzechClan\BasePresenter;
+use Tempeus\BasePresenter;
 
 abstract class BasePublicPresenter extends BasePresenter
 {

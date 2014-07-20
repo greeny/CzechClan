@@ -2,7 +2,7 @@
 /**
  * @author Tomáš Blatný
  */
-namespace CzechClan\Templating;
+namespace Tempeus\Templating;
 
 use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Object;

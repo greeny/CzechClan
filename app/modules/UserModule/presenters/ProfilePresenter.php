@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\UserModule;
+namespace Tempeus\UserModule;
 
 class ProfilePresenter extends BaseUserPresenter
 {

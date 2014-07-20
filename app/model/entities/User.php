@@ -3,9 +3,9 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Model;
+namespace Tempeus\Model;
 
-use CzechClan\Security\PasswordHasher;
+use Tempeus\Security\PasswordHasher;
 
 /**
  * @property-read int $id

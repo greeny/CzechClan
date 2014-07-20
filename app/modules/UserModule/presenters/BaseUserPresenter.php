@@ -3,10 +3,10 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\UserModule;
+namespace Tempeus\UserModule;
 
-use CzechClan\BasePresenter;
-use CzechClan\Model\UserRepository;
+use Tempeus\BasePresenter;
+use Tempeus\Model\UserRepository;
 
 abstract class BaseUserPresenter extends BasePresenter
 {

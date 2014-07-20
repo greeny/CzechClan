@@ -3,11 +3,11 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\AdminModule;
+namespace Tempeus\AdminModule;
 
-use CzechClan\Controls\Form;
-use CzechClan\Model\Category;
-use CzechClan\Model\CategoryRepository;
+use Tempeus\Controls\Form;
+use Tempeus\Model\Category;
+use Tempeus\Model\CategoryRepository;
 use Nette\Utils\Paginator;
 
 class CategoryPresenter extends BaseSpecificAdminPresenter

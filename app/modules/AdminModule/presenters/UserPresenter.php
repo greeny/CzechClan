@@ -3,12 +3,12 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\AdminModule;
+namespace Tempeus\AdminModule;
 
-use CzechClan\Controls\Form;
-use CzechClan\Model\RoleRepository;
-use CzechClan\Model\User;
-use CzechClan\Model\UserRepository;
+use Tempeus\Controls\Form;
+use Tempeus\Model\RoleRepository;
+use Tempeus\Model\User;
+use Tempeus\Model\UserRepository;
 use Nette\Security\AuthenticationException;
 use Nette\Utils\Paginator;
 
@@ -158,4 +158,3 @@ class UserPresenter extends BaseGeneralAdminPresenter
 		return $this->isAllowed('user');
 	}
 }
- 

@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\GameModule;
+namespace Tempeus\GameModule;
 
 class DashboardPresenter extends BaseGamePresenter
 {

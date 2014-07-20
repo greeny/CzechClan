@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Security;
+namespace Tempeus\Security;
 
 class PasswordHasher {
 	public static function hashPassword($nick, $password, $salt)

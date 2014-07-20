@@ -1,6 +1,6 @@
 <?php
 
-namespace CzechClan\Controls;
+namespace Tempeus\Controls;
 
 use Cards\Controls\Mail;
 use	Nette\NotSupportedException;

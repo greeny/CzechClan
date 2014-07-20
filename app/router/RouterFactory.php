@@ -1,6 +1,6 @@
 <?php
 
-namespace CzechClan\Routing;
+namespace Tempeus\Routing;
 
 use Nette\Application\Routers\RouteList;
 use Nette\Application\Routers\Route;

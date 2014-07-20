@@ -3,15 +3,15 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Security;
+namespace Tempeus\Security;
 
-use CzechClan\Model\User;
+use Tempeus\Model\User;
 use Nette\Object;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
 use Nette\Security\IIdentity;
-use CzechClan\Model\UserRepository;
+use Tempeus\Model\UserRepository;
 use Nette\Utils\ArrayHash;
 
 class Authenticator extends Object implements IAuthenticator {

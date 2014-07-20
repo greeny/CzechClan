@@ -2,7 +2,7 @@
 /**
  * @author Tomáš Blatný
  */
-namespace CzechClan\Controls;
+namespace Tempeus\Controls;
 
 abstract class BaseMail extends MailControl {
 	protected $subject;

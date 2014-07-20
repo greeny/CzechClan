@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Model;
+namespace Tempeus\Model;
 
 use Nette\Utils\ArrayHash;
 

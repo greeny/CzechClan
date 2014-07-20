@@ -3,11 +3,11 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\GameModule;
+namespace Tempeus\GameModule;
 
-use CzechClan\BasePresenter;
-use CzechClan\Model\Game;
-use CzechClan\Model\GameRepository;
+use Tempeus\BasePresenter;
+use Tempeus\Model\Game;
+use Tempeus\Model\GameRepository;
 
 abstract class BaseGamePresenter extends BasePresenter
 {

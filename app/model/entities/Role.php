@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Model;
+namespace Tempeus\Model;
 
 /**
  * @property-read int $id
@@ -19,4 +19,3 @@ class Role extends BaseEntity
 {
 
 }
- 

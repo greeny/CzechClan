@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Model;
+namespace Tempeus\Model;
 
 /**
  * @property-read int $id
@@ -23,4 +23,3 @@ class Permission extends BaseEntity
 		'article' => 'Administrace článků',
 	);
 }
- 

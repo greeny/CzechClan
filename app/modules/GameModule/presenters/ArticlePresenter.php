@@ -3,9 +3,9 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\GameModule;
+namespace Tempeus\GameModule;
 
-use CzechClan\Model\ArticleRepository;
+use Tempeus\Model\ArticleRepository;
 
 class ArticlePresenter extends BaseGamePresenter
 {

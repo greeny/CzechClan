@@ -3,12 +3,12 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Model;
+namespace Tempeus\Model;
 
 use Nette\Utils\ArrayHash;
 use Nette\Security\AuthenticationException;
 use Nette\Utils\Random;
-use CzechClan\Security\PasswordHasher;
+use Tempeus\Security\PasswordHasher;
 
 class UserRepository extends BaseRepository {
 

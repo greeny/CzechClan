@@ -3,9 +3,9 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\UserModule;
+namespace Tempeus\UserModule;
 
-use CzechClan\Controls\Form;
+use Tempeus\Controls\Form;
 use Nette\Mail\Message;
 use Nette\Security\AuthenticationException;
 
@@ -43,9 +43,9 @@ class SignPresenter extends BaseUserPresenter
 			$user = $this->userRepository->register($v);
 			$mail = new Message();
 			$mail->addTo($v->email);
-			$mail->setHtmlBody("Ahoj $user->nick!<br><br>Tvoje registrace na webu CzechClanu proběhla úspěšně.
+			$mail->setHtmlBody("Ahoj $user->nick!<br><br>Tvoje registrace na webu Tempeusu proběhla úspěšně.
 			Pro ověření emailu klikni na tento odkaz: ".$this->link('\\\\:User:Profile:verify', array('id' => $user->nick,
-					'code' => $user->salt)).'.<br><br>Hodně štěstí ve hře ti přeje CzechClan Admin Team.');
+					'code' => $user->salt)).'.<br><br>Hodně štěstí ve hře ti přeje Tempeus Admin Team.');
 			$this->mailer->send($mail);
 			$this->flashSuccess('Registrace proběhla úspěšně, zkontrolujte si svůj email.');
 		} catch(AuthenticationException $e) {

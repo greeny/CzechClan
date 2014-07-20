@@ -1,6 +1,6 @@
 <?php
 
-namespace CzechClan;
+namespace Tempeus;
 
 use Nette\Application\BadRequestException;
 use Nette\Diagnostics\Debugger;

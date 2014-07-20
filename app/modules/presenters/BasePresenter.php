@@ -1,20 +1,20 @@
 <?php
 
-namespace CzechClan;
+namespace Tempeus;
 
-use CzechClan\Controls\User\User;
-use CzechClan\Mail\CzechClanMailer;
-use CzechClan\Model\GameRepository;
-use CzechClan\Model\UserRepository;
-use CzechClan\Security\Authorizator;
-use CzechClan\Templating\Helpers;
-use CzechClan\Controls\Form;
+use Tempeus\Controls\User\User;
+use Tempeus\Mail\TempeusMailer;
+use Tempeus\Model\GameRepository;
+use Tempeus\Model\UserRepository;
+use Tempeus\Security\Authorizator;
+use Tempeus\Templating\Helpers;
+use Tempeus\Controls\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
 
 abstract class BasePresenter extends Presenter
 {
-	/** @var CzechClanMailer @inject */
+	/** @var TempeusMailer @inject */
 	public $mailer;
 
 	/** @var GameRepository @inject */

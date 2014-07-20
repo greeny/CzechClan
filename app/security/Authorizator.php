@@ -3,11 +3,11 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Security;
+namespace Tempeus\Security;
 
-use CzechClan\Model\PermissionRepository;
-use CzechClan\Model\Role;
-use CzechClan\Model\RoleRepository;
+use Tempeus\Model\PermissionRepository;
+use Tempeus\Model\Role;
+use Tempeus\Model\RoleRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\Security\IAuthorizator;
@@ -22,16 +22,16 @@ class Authorizator implements IAuthorizator
 	/** @var \Nette\Caching\Cache */
 	protected $cache;
 
-	/** @var \CzechClan\Model\RoleRepository */
+	/** @var \Tempeus\Model\RoleRepository */
 	protected $roleRepository;
 
-	/** @var \CzechClan\Model\PermissionRepository */
+	/** @var \Tempeus\Model\PermissionRepository */
 	protected $permissionRepository;
 
 	/** @var Permission */
 	protected $permission;
 
-	/** @var \CzechClan\Model\Permission[] */
+	/** @var \Tempeus\Model\Permission[] */
 	protected $permissions = array();
 
 	/**
@@ -137,7 +137,7 @@ class Authorizator implements IAuthorizator
 		}
 	}
 
-	protected function addPermission(\CzechClan\Model\Permission $permission)
+	protected function addPermission(\Tempeus\Model\Permission $permission)
 	{
 		$this->permissions[] = $permission;
 	}

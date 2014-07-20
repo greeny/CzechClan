@@ -14,7 +14,7 @@ nette:
 	application:
 		errorPresenter: Error
 		mapping:
-			*: CzechClan\*Module\*Presenter
+			*: Tempeus\*Module\*Presenter
 
 	session:
 		expiration: 14 days
@@ -23,20 +23,20 @@ nette:
 services:
 	connection:
 		class: LeanMapper\Connection( %database%, ... )
-	- CzechClan\Model\Mapper
+	- Tempeus\Model\Mapper
 	- LeanMapper\DefaultEntityFactory
 
-	- CzechClan\Model\ArticleRepository
-	- CzechClan\Model\CategoryRepository
-	- CzechClan\Model\GameRepository
-	- CzechClan\Model\PermissionRepository
-	- CzechClan\Model\RoleRepository
-	- CzechClan\Model\UserRepository
+	- Tempeus\Model\ArticleRepository
+	- Tempeus\Model\CategoryRepository
+	- Tempeus\Model\GameRepository
+	- Tempeus\Model\PermissionRepository
+	- Tempeus\Model\RoleRepository
+	- Tempeus\Model\UserRepository
 
-	- CzechClan\Security\Authenticator
-	- CzechClan\Security\Authorizator
+	- Tempeus\Security\Authenticator
+	- Tempeus\Security\Authorizator
 
-	- CzechClan\Mail\CzechClanMailer( %mailing.fromEmail% , %mailing.fromName% )
+	- Tempeus\Mail\TempeusMailer( %mailing.fromEmail% , %mailing.fromName% )
 
-	- CzechClan\Routing\RouterFactory
-	router: @CzechClan\Routing\RouterFactory::createRouter
+	- Tempeus\Routing\RouterFactory
+	router: @Tempeus\Routing\RouterFactory::createRouter

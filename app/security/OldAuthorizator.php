@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\Security;
+namespace Tempeus\Security;
 
 use Nette\Security\Permission;
 

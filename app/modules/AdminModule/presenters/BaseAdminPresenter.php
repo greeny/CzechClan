@@ -3,9 +3,9 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\AdminModule;
+namespace Tempeus\AdminModule;
 
-use CzechClan\BasePresenter;
+use Tempeus\BasePresenter;
 
 abstract class BaseAdminPresenter extends BasePresenter
 {

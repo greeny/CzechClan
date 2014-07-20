@@ -3,11 +3,11 @@
  * @author Tomáš Blatný
  */
 
-namespace CzechClan\AdminModule;
+namespace Tempeus\AdminModule;
 
-use CzechClan\Controls\Form;
-use CzechClan\Model\Game;
-use CzechClan\Model\RepositoryException;
+use Tempeus\Controls\Form;
+use Tempeus\Model\Game;
+use Tempeus\Model\RepositoryException;
 
 class GamePresenter extends BaseGeneralAdminPresenter
 {
