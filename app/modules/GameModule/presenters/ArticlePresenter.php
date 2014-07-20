@@ -7,11 +7,15 @@ namespace Tempeus\GameModule;
 
 use Nette\Utils\Paginator;
 use Tempeus\Model\ArticleRepository;
+use Tempeus\Model\CategoryRepository;
 
 class ArticlePresenter extends BaseGamePresenter
 {
 	/** @var ArticleRepository @inject */
 	public $articleRepository;
+
+	/** @var CategoryRepository @inject */
+	public $categoryRepository;
 
 	public function renderDefault($page = 1)
 	{
@@ -32,5 +36,14 @@ class ArticlePresenter extends BaseGamePresenter
 			$this->flashError('Článek již neexistuje.');
 			$this->redirect('default');
 		}
+	}
+
+	public function actionCategory($id)
+	{
+		if(!$this->template->category = $category = $this->categoryRepository->findBySlug($id)) {
+			$this->flashError('Kategorie již neexistuje.');
+			$this->redirect('default');
+		}
+		$this->template->articles = $this->articleRepository->findByCategory($category, $this->game);
 	}
 }

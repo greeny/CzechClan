@@ -1,0 +1,10 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Seznam článků v kategorii {$category->name}</h1>
+</div>
+
+<ul>
+	{foreach $articles as $article}
+		<li><a n:href="detail $article->slug">{$article->title}</a> (autor {control user, $article->author})</li>
+	{/foreach}
+</ul>

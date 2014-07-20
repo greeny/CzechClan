@@ -10,15 +10,12 @@
 			<h3><a n:href="Article:detail $newestArticle->slug">{$newestArticle->title}</a></h3>
 			<span class="icon-user icon-fw"></span> {control user, $newestArticle->author}<br>
 			<span class="icon-clock-o icon-fw"></span> {$newestArticle->published|time}<br>
-			<span class="icon-tag icon-fw"></span>
-			{if $newestArticle->category}
-			{$newestArticle->category}
-			{else}
-			-
-			{/if}<br>
+			<span class="icon-tag icon-fw"></span> {control category, $newestArticle->category}<br>
 			<span class="icon-comments icon-fw"></span> 0<br>
 			<hr>
 			{$newestArticle->content|striptags|truncate:150|noescape}
+			<hr>
+			<a n:href="Article:default" class="btn btn-primary">Všechny články <span class="icon-chevron-right"></span></a>
 		</div>
 	</div>
 	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>

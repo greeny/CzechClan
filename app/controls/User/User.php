@@ -3,7 +3,7 @@
  * @author Tomáš Blatný
  */
 
-namespace Tempeus\Controls\User;
+namespace Tempeus\Controls;
 
 use Nette\Application\UI\Control;
 

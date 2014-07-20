@@ -2,7 +2,8 @@
 
 namespace Tempeus;
 
-use Tempeus\Controls\User\User;
+use Tempeus\Controls\Category;
+use Tempeus\Controls\User;
 use Tempeus\Mail\TempeusMailer;
 use Tempeus\Model\GameRepository;
 use Tempeus\Model\UserRepository;
@@ -103,5 +104,10 @@ abstract class BasePresenter extends Presenter
 	protected function createComponentUser()
 	{
 		return new User();
+	}
+
+	protected function createComponentCategory()
+	{
+		return new Category();
 	}
 }
