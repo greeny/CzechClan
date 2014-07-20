@@ -17,7 +17,7 @@ nette:
 			*: Tempeus\*Module\*Presenter
 
 	session:
-		expiration: 14 days
+		expiration: 15 days
 
 
 services:
