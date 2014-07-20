@@ -77,7 +77,8 @@ class ArticlePresenter extends BaseSpecificAdminPresenter
 	protected function createComponentEditArticleForm()
 	{
 		$form = $this->createArticleForm();
-		$form->setDefaults($this->article->getData());
+		$form->setDefaults($this->article->getData(array('title', 'content')));
+		$form['category']->setDefaultValue($this->article->category->id);
 		$form->addSubmit('editArticle', 'Upravit článek');
 		$form->onSuccess[] = $this->editArticleFormSuccess;
 		return $form;
