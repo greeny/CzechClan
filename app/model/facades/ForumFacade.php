@@ -6,9 +6,8 @@
 namespace Tempeus\Model;
 
 use LeanMapper\Connection;
-use Nette\Security\User;
+use Nette\Security\User as NUser;
 use Nette\Utils\ArrayHash;
-use Tempeus\Controls\TreeStructure\TreeStructure;
 
 class ForumFacade extends BaseFacade
 {
@@ -59,7 +58,7 @@ class ForumFacade extends BaseFacade
 		return $this->postRepository->findByThread($thread);
 	}
 
-	public function getTopics(Game $game, User $user, ForumTopic $parent = NULL)
+	public function getTopics(Game $game, NUser $user, ForumTopic $parent = NULL)
 	{
 		$return = array();
 		if($parent !== NULL) {
@@ -151,7 +150,7 @@ class ForumFacade extends BaseFacade
 		return $topic;
 	}
 
-	protected static function canUserSeeTopic(User $user, ForumTopic $topic)
+	protected static function canUserSeeTopic(NUser $user, ForumTopic $topic)
 	{
 		if($topic->public || in_array('owner', $user->getRoles())) {
 			return TRUE;
