@@ -4,7 +4,7 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" n:if="$newestArticle">
 		<div class="well">
 			<h2>Nejnovější článek</h2>
 			<h3><a n:href="Article:detail $newestArticle->slug">{$newestArticle->title}</a></h3>

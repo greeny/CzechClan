@@ -1,0 +1,6 @@
+{default $breadcrumbs = array()}
+<ul class="breadcrumb">
+	<li n:class="count($breadcrumbs) === 0 ? active"><a n:tag-if="count($breadcrumbs) !== 0" n:href="default">{$currentGame->name} Fórum</a></li>
+	<li n:foreach="$breadcrumbs as $topic" n:class="$iterator->isLast() && !isset($thread) ? active"><a n:tag-if="!$iterator->isLast() || isset($thread)" n:href="topic $topic->id">{$topic->title}</a></li>
+	<li n:if="isset($thread)" class="active">Vlákno: {$thread->title}</li>
+</ul>

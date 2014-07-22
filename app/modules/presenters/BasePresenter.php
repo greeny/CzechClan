@@ -101,6 +101,11 @@ abstract class BasePresenter extends Presenter
 		return $this->authorizator->hasAdminAccess($this->user);
 	}
 
+	public function isAdminAllowed($game, $resource)
+	{
+		return $this->authorizator->isAdminAllowed($this->user, $game, $resource);
+	}
+
 	protected function createComponentUser()
 	{
 		return new User();

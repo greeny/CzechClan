@@ -1,0 +1,115 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Fórum</h1>
+</div>
+
+{include 'breadcrumbs/breadcrumbs.latte'}
+
+{var $allowed = $presenter->isAdminAllowed($currentGame->slug, 'forum')}
+
+<div class="well well-sm">
+	<div class="btn-group">
+		<a n:if="$allowed" n:href="createTopic $topicId" class="btn btn-success">
+			<span class="icon-folder-o"></span> Nové téma
+		</a>
+		<a n:if="$user->isLoggedIn() && $topicId" n:href="createThread $topicId" class="btn btn-success disabled">
+			<span class="icon-file-text-o"></span> Nové vlákno
+		</a>
+	</div>
+</div>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-hover table-striped">
+		<thead>
+			<tr>
+				<th style="width: 55px;"></th>
+				<th>Téma</th>
+				<th style="width: 40%">Poslední příspěvek</th>
+				<th n:if="$allowed" style="width: 75px">Akce</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr n:if="!count($topics)">
+				<td colspan="{$allowed ? 4 : 3}">
+					<div class="text-center">
+						<i>Nenalezena žádná témata</i>
+					</div>
+				</td>
+			</tr>
+			<tr n:foreach="$topics as $topic">
+				<td>
+					<span class="icon-folder-o icon-3x"></span>
+				</td>
+				<td>
+					<a n:href="topic $topic->id"><b>{$topic->title}</b></a><br>
+					{$topic->subtitle}
+				</td>
+				<td>
+					{if $topic->lastPost}
+						<a n:href="thread#post-{$topic->lastPost->id} $topic->id"><b>{$topic->lastPost->title}</b></a><br>
+						Přidal {control user, $topic->lastPost->user} ({$topic->lastPost->datePosted|time})
+					{else}
+						-
+					{/if}
+				</td>
+				<td n:if="$allowed">
+					<span class="btn-group">
+						<a n:href="editTopic $topic->id" class="btn btn-default btn-xs"><span class="icon-fw icon-pencil"></span></a>
+						<a n:href="moveTopic! topicId => $topic->id, direction => up" n:class="btn, btn-default, btn-xs, $iterator->isFirst() ? disabled"><span class="icon-fw icon-chevron-up"></span></a>
+					</span>
+					<span class="btn-group">
+						<a n:href="deleteTopic! topicId => $topic->id" class="btn btn-default btn-xs disabled"><span class="icon-fw icon-times"></span></a>
+						<a n:href="moveTopic! topicId => $topic->id, direction => down" n:class="btn, btn-default, btn-xs, $iterator->isLast() ? disabled"><span class="icon-fw icon-chevron-down"></span></a>
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="table-responsive" n:if="isset($threads)">
+	<table class="table table-bordered table-hover table-striped">
+		<thead>
+			<tr>
+				<th style="width: 55px"></th>
+				<th>Vlákno</th>
+				<th style="width: 40%">Poslední příspěvek</th>
+				<th n:if="$allowed" style="width: 75px">Akce</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr n:if="!count($threads)">
+				<td colspan="{$allowed ? 4 : 3}">
+					<div class="text-center">
+						<i>Nenalezena žádná vlákna</i>
+					</div>
+				</td>
+			</tr>
+			<tr n:foreach="$threads as $thread">
+				<td>
+					<span class="icon-file-text-o icon-3x"></span>
+				</td>
+				<td>
+					<span n:if="$thread->pinned" class="icon-star"></span>
+					<span n:if="$thread->locked" class="icon-lock"></span>
+					<a n:href="thread $thread->id"><b>{$thread->title}</b></a><br>
+					Založil {control user, $thread->user} ({$thread->dateCreated|time})
+				</td>
+				<td>
+					<a n:href="thread#post-{$thread->lastPost->id} $thread->id"><b>{$thread->lastPost->title}</b></a><br>
+					Přidal {control user, $thread->lastPost->user} ({$thread->lastPost->datePosted|time})
+				</td>
+				<td n:if="$allowed">
+					<span class="btn-group">
+						<a n:href="editThread $thread->id" class="btn btn-default btn-xs"><span class="icon-fw icon-pencil"></span></a>
+						<a n:href="lockThread! $thread->id" class="btn btn-default btn-xs"><span n:class="icon-fw, $thread->locked ? icon-unlock : icon-lock"></span></a>
+					</span>
+					<span class="btn-group">
+						<a n:href="deleteThread! $thread->id" class="btn btn-default btn-xs"><span class="icon-fw icon-times"></span></a>
+						<a n:href="pinThread! $thread->id" class="btn btn-default btn-xs"><span n:class="icon-fw, $thread->pinned ? icon-star : icon-star-o"></span></a>
+					</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

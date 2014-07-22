@@ -8,4 +8,6 @@ $(function(){
     $('li.disabled a').on('click', function(e) {
         e.preventDefault();
     });
+	var hash = document.location.hash;
+	hash ? $(hash).addClass('warning') : undefined;
 });

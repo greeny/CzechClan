@@ -26,9 +26,15 @@ services:
 	- Tempeus\Model\Mapper
 	- LeanMapper\DefaultEntityFactory
 
+	- Tempeus\Model\ForumFacade
+
 	- Tempeus\Model\ArticleRepository
 	- Tempeus\Model\CategoryRepository
 	- Tempeus\Model\GameRepository
+	- Tempeus\Model\ForumPostRepository
+	- Tempeus\Model\ForumThreadContentRepository
+	- Tempeus\Model\ForumThreadRepository
+	- Tempeus\Model\ForumTopicRepository
 	- Tempeus\Model\InformationRepository
 	- Tempeus\Model\PermissionRepository
 	- Tempeus\Model\RoleRepository

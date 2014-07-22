@@ -25,3 +25,18 @@ a.no-underline:hover {
 .tooltip-inner {
 	max-width: none;
 }
+
+table.table-bordered tr th,
+table.table-bordered tr td {
+	vertical-align: middle;
+}
+
+table.table-bordered.table-forum tr th,
+table.table-bordered.table-forum tr td {
+	vertical-align: text-top;
+}
+
+.table-forum hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
