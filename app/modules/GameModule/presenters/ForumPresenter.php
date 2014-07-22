@@ -21,6 +21,7 @@ class ForumPresenter extends BaseGamePresenter
 	public function renderDefault()
 	{
 		$this->template->topicId = NULL;
+		$this->template->breadcrumbs = array();
 		$this->template->topics = $this->forumFacade->getTopics($this->game, $this->user);
 	}
 
@@ -52,12 +53,23 @@ class ForumPresenter extends BaseGamePresenter
 			$this->flashError('Nemáš oprávnění k vytváření témat.');
 			$this->redirect($id === NULL ? 'default' : 'topic', array('id' => $id));
 		}
+		if($id) {
+			try {
+				$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($this->forumFacade->getTopic($id));
+			} catch(RepositoryException $e) {
+				$this->flashError($e->getMessage());
+				$this->redirect('default');
+			}
+		} else {
+			$this->template->breadcrumbs = array();
+		}
 	}
 
 	public function actionEditTopic($id)
 	{
 		try {
 			$this->topic = $this->forumFacade->getTopic($id);
+			$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($this->topic);
 		} catch(RepositoryException $e) {
 			$this->flashError($e->getMessage());
 			$this->redirect('default');

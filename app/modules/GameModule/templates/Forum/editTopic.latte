@@ -3,6 +3,10 @@
 	<h1 n:inner-block="title">Fórum</h1>
 </div>
 
-{include 'breadcrumbs/breadcrumbs.latte'}
+<ul class="breadcrumb">
+	<li><a n:href="default">{$currentGame->name} Fórum</a></li>
+	<li n:foreach="$breadcrumbs as $topic" n:if="!$iterator->isLast()"><a n:href="topic $topic->id">{$topic->title}</a></li>
+	<li class="active">Upravit téma "{$topic->title}"</li>
+</ul>
 
 {control editTopicForm}
