@@ -34,8 +34,6 @@ class GamePresenter extends BaseGeneralAdminPresenter
 			->setRequired('Prosím zadej jméno hry.');
 		$form->addText('slug', 'Zkratka')
 			->setRequired('Prosím zadej zkratku');
-		$form->addTextArea('rules', 'Pravidla')
-			->setAttribute('class', 'ckeditor');
 		$form->addText('order', 'Pořadí')
 			->setType('number')
 			->addRule($form::NUMERIC, 'Pořadí musí být číslo.')
