@@ -99,7 +99,6 @@ class UserPresenter extends BaseGeneralAdminPresenter
 	{
 		$v = $form->getValues();
 		$this->u->update($v);
-		$this->u->fixPassword($this->u->password);
 		$this->userRepository->persist($this->u);
 		$this->flashSuccess('Uživatel byl upraven.');
 		$this->redirect('default');
