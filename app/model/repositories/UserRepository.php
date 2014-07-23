@@ -52,6 +52,18 @@ class UserRepository extends BaseRepository {
 		return $user;
 	}
 
+	public function verifyUser(User $user = NULL, $code = '')
+	{
+		if($user == NULL) {
+			throw new RepositoryException("Uživatel nenalezen");
+		} else if($user->salt !== $code) {
+			throw new RepositoryException("Špatné údaje.");
+		} else {
+			$user->verified = 1;
+			$this->persist($user);
+		}
+	}
+
 	public function findPairs()
 	{
 		return $this->connection->select('*')

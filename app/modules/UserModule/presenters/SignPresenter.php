@@ -43,7 +43,7 @@ class SignPresenter extends BaseUserPresenter
 			$user = $this->userRepository->register($v);
 			$mail = new Message();
 			$mail->addTo($v->email);
-			$mail->setHtmlBody("Ahoj $user->nick!<br><br>Tvoje registrace na webu Tempeusu proběhla úspěšně.
+			$mail->setHtmlBody("Ahoj $user->nick!<br><br>Tvoje registrace na webu Tempeuse proběhla úspěšně.
 			Pro ověření emailu klikni na tento odkaz: ".$this->link('\\\\:User:Profile:verify', array('id' => $user->nick,
 					'code' => $user->salt)).'.<br><br>Hodně štěstí ve hře ti přeje Tempeus Admin Team.');
 			$this->mailer->send($mail);

@@ -22,5 +22,6 @@ class Permission extends BaseEntity
 	public static $specificResources = array(
 		'article' => 'Administrace článků',
 		'information' => 'Administrace informací',
+		'forum' => 'Administrace fóra',
 	);
 }
