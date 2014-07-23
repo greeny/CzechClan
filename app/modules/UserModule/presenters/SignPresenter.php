@@ -42,12 +42,14 @@ class SignPresenter extends BaseUserPresenter
 		try {
 			$user = $this->userRepository->register($v);
 			$mail = new Message();
-			$mail->addTo($v->email);
-			$mail->setHtmlBody("Ahoj $user->nick!<br><br>Tvoje registrace na webu Tempeuse proběhla úspěšně.
-			Pro ověření emailu klikni na tento odkaz: ".$this->link('\\\\:User:Profile:verify', array('id' => $user->nick,
+			$mail->addTo($v->email)
+				->setSubject('Registrace na webu Tempeus')
+				->setHtmlBody("Ahoj $user->nick!<br><br>Tvoje registrace na webu Tempeuse proběhla úspěšně.
+			Pro ověření emailu klikni na tento odkaz: ".$this->link("//:User:Profile:verify", array('id' => $user->nick,
 					'code' => $user->salt)).'.<br><br>Hodně štěstí ve hře ti přeje Tempeus Admin Team.');
 			$this->mailer->send($mail);
 			$this->flashSuccess('Registrace proběhla úspěšně, zkontrolujte si svůj email.');
+			$this->redirect(':Public:Dashboard:default');
 		} catch(AuthenticationException $e) {
 			$this->flashError($e->getMessage());
 			$this->refresh();
