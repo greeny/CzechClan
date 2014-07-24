@@ -39,6 +39,11 @@ class GamePresenter extends BaseGeneralAdminPresenter
 			->addRule($form::NUMERIC, 'Pořadí musí být číslo.')
 			->addRule($form::MIN, 'Pořadí musí být větší nebo rovno nule.', 0)
 			->setDefaultValue(0);
+		$form->addSelect('feed', 'Status panel', array(
+			'' => 'Žádný',
+			'minecraft' => 'Minecraft',
+			'gta' => 'GTA',
+		));
 		$form->addCheckbox('active', 'Aktivní')
 			->setDefaultValue(TRUE);
 		return $form;

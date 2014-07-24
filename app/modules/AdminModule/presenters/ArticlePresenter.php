@@ -46,7 +46,6 @@ class ArticlePresenter extends BaseSpecificAdminPresenter
 		$form->addText('title', 'Titulek')
 			->setRequired('Prosím zadej titulek.');
 		$form->addTextArea('content', 'Obsah')
-			->setRequired('Prosím zadej obsah.')
 			->setAttribute('class', 'ckeditor');
 		$form->addSelect('category', 'Kategorie', $this->categoryRepository->fetchPairsByGame($this->game))
 			->setPrompt('Žádná kategorie');

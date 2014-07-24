@@ -36,7 +36,6 @@ class InformationPresenter extends BaseSpecificAdminPresenter
 		$form->addText('title', 'Titulek')
 			->setRequired('Prosím zadej titulek.');
 		$form->addTextArea('content', 'Obsah')
-			->setRequired('Prosím zadej obsah')
 			->setAttribute('class', 'ckeditor');
 		$form->addText('order', 'Pořadí')
 			->setType('number')

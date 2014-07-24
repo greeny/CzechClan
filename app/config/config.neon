@@ -45,5 +45,8 @@ services:
 
 	- Tempeus\Mail\TempeusMailer( %mailing.fromEmail% , %mailing.fromName% )
 
+	- Tempeus\Games\Feeds\MinecraftFeedProvider( %feeds.minecraft% )
+	- Tempeus\Games\Feeds\GtaFeedProvider( %feeds.gta% )
+
 	- Tempeus\Routing\RouterFactory
 	router: @Tempeus\Routing\RouterFactory::createRouter

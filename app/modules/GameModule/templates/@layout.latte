@@ -31,3 +31,18 @@
 		</li>
 	</ul>
 {/block}
+{block panel}
+	<div class="spacer"></div>
+	<div n:if="$currentGame->feed" class="well well-sm">
+		{var $feed = $feeds[$currentGame->feed]}
+		<h3>{$feed->name}</h3>
+		{$feed->info}<br>
+		Status: <span n:class="$feed->online ? text-success : text-danger">
+			{$feed->status}
+		</span><br>
+		<b>Hráči ({$feed->playerCount}/{$feed->maxPlayers})</b>:
+		<ul>
+			<li n:foreach="$feed->players as $player">{$player->name}</li>
+		</ul>
+	</div>
+{/block}

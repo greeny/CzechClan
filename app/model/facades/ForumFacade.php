@@ -150,6 +150,18 @@ class ForumFacade extends BaseFacade
 		return $topic;
 	}
 
+	public function createThread(NUser $user, ForumTopic $topic, ArrayHash $values)
+	{
+		$content = $values->content;
+		unset($values->content);
+		$thread = ForumThread::from($values);
+		$thread->topic = $topic;
+		$thread->dateCreated = Time();
+		$thread->user = $user;
+
+		// TODO
+	}
+
 	protected static function canUserSeeTopic(NUser $user, ForumTopic $topic)
 	{
 		if($topic->public || in_array('owner', $user->getRoles())) {

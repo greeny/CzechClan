@@ -10,3 +10,6 @@ parameters:
 	mailing:
 		fromEmail: from@example.com
 		fromName: Example.com mailer
+	feeds:
+		minecraft:
+		gta:
