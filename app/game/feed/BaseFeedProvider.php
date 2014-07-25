@@ -30,7 +30,7 @@ abstract class BaseFeedProvider extends Object implements IFeedProvider
 
 	public function getPlayers()
 	{
-		return $this->getFeed()->players_list;
+		return isset($this->getFeed()->players_list) ? $this->getFeed()->players_list : array();
 	}
 
 	public function getPlayerCount()

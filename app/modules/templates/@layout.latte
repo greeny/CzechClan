@@ -31,7 +31,7 @@
 				<div class="collapse navbar-collapse" id="navbar-collapse">
 					<ul class="nav navbar-nav navbar-left">
 						<li class="dropdown">
-							<a href="#" data-toggle="dropdown"><span class="icon-gamepad"></span>
+							<a class="dropdown-toggle" href="#" data-toggle="dropdown"><span class="icon-gamepad"></span>
 								{isset($currentGame) && substr($presenter->getName(), 0, 5) !== 'Admin' ?
 								$currentGame->name : 'Hry Tempeuse'} <span class="caret"></span>
 							</a>
@@ -46,21 +46,45 @@
 								{/foreach}
 							</ul>
 						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<span class="icon-globe"></span> Web <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a n:href=":Web:Dashboard:default"><span class="icon-gears"></span> Tvorba webu</a>
+								</li>
+							</ul>
+						</li>
 					</ul>
 
 
 					<ul class="nav navbar-nav navbar-right">
 						{if $user->loggedIn}
-							<li n:class="$presenter->isLinkCurrent(':User:Profile:detail', array('id' => NULL)) ? active">
-								<a n:href=":User:Profile:detail"><span class="icon-user"></span> Profil ({$user->identity->nick})</a>
+							{include 'notifications/@layout.latte'}
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<span class="icon-user"></span> {$user->identity->nick} <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+									{if $presenter->hasUserAdminAccess()}
+										<li n:class="$admin = substr($presenter->getName(), 0, 5) === 'Admin' ? active">
+											<a n:href=":Admin:Dashboard:default">
+												<span n:class="icon-cog, $admin ? icon-spin"></span> Administrace
+											</a>
+										</li>
+										<li class="divider"></li>
+									{/if}
+									<li n:class="$presenter->isLinkCurrent(':User:Profile:detail', array('id' => $user->identity->nick)) ? active">
+										<a n:href=":User:Profile:detail $user->identity->nick"><span class="icon-credit-card"></span> Profil</a>
+									</li>
+									<li><a n:href="logout!"><span class="icon-sign-out"></span> Odhlásit se</a></li>
+								</ul>
 							</li>
-							<li n:if="$presenter->hasUserAdminAccess()" n:class="$admin = substr($presenter->getName(), 0, 5) === 'Admin' ? active">
-								<a n:href=":Admin:Dashboard:default"><span n:class="icon-cog, $admin ? icon-spin"></span> Administrace</a>
-							</li>
-							<li><a n:href="logout!"><span class="icon-sign-out"></span> Odhlásit se</a></li>
+
 						{else}
 							<li>{form signInForm, class => 'navbar-form'}
-								{input nick, class => 'form-control '}
+								{input nick, class => 'form-control'}
 								{input password, class => 'form-control'}
 								<button n:name="signIn" class="form-control btn-primary">
 									<span class="icon-sign-in"></span> Přihlásit se

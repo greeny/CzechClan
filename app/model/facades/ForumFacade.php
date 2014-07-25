@@ -14,8 +14,8 @@ class ForumFacade extends BaseFacade
 	/** @var \Tempeus\Model\ForumPostRepository */
 	protected $postRepository;
 
-	/** @var \Tempeus\Model\ForumThreadContentRepository */
-	protected $threadContentRepository;
+	/** @var \Tempeus\Model\ForumPostContentRepository */
+	protected $postContentRepository;
 
 	/** @var \Tempeus\Model\ForumThreadRepository */
 	protected $threadRepository;
@@ -28,13 +28,13 @@ class ForumFacade extends BaseFacade
 
 	public function __construct(
 		ForumPostRepository $postRepository,
-		ForumThreadContentRepository $threadContentRepository,
+		ForumPostContentRepository $postContentRepository,
 		ForumThreadRepository $threadRepository,
 		ForumTopicRepository $topicRepository,
 		Connection $connection)
 	{
 		$this->postRepository = $postRepository;
-		$this->threadContentRepository = $threadContentRepository;
+		$this->postContentRepository = $postContentRepository;
 		$this->threadRepository = $threadRepository;
 		$this->topicRepository = $topicRepository;
 		$this->connection = $connection;
@@ -150,19 +150,50 @@ class ForumFacade extends BaseFacade
 		return $topic;
 	}
 
-	public function createThread(NUser $user, ForumTopic $topic, ArrayHash $values)
+	/**
+	 * @param User       $user
+	 * @param ForumTopic $topic
+	 * @param ArrayHash  $values
+	 * @return ForumThread
+	 */
+	public function createThread(User $user, ForumTopic $topic, ArrayHash $values)
 	{
-		$content = $values->content;
-		unset($values->content);
+		$this->startTransaction();
+		$text = $values->text;
+		unset($values->text);
 		$thread = ForumThread::from($values);
 		$thread->topic = $topic;
 		$thread->dateCreated = Time();
 		$thread->user = $user;
+		$this->threadRepository->persist($thread);
 
-		// TODO
+		$postContent = new ForumPostContent();
+		$postContent->post = NULL;
+		$postContent->text = $text;
+		$this->postContentRepository->persist($postContent);
+
+		$post = new ForumPost();
+		$post->datePosted = Time();
+		$post->order = 1;
+		$post->thread = $thread;
+		$post->title = $thread->title;
+		$post->user = $user;
+		$this->postRepository->persist($post);
+
+		$postContent->post = $post;
+		$this->postContentRepository->persist($postContent);
+		$this->commit();
+		return $thread;
 	}
 
-	protected static function canUserSeeTopic(NUser $user, ForumTopic $topic)
+	public function updateThread(ForumThread $thread, ArrayHash $values)
+	{
+		$thread->update($values);
+		$this->threadRepository->persist($thread);
+		return $thread;
+	}
+
+	public static function canUserSeeTopic(NUser $user, ForumTopic $topic)
 	{
 		if($topic->public || in_array('owner', $user->getRoles())) {
 			return TRUE;

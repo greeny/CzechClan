@@ -7,6 +7,7 @@ namespace Tempeus\GameModule;
 
 use Tempeus\Controls\Form;
 use Tempeus\Model\ForumFacade;
+use Tempeus\Model\ForumThread;
 use Tempeus\Model\ForumTopic;
 use Tempeus\Model\RepositoryException;
 
@@ -17,6 +18,9 @@ class ForumPresenter extends BaseGamePresenter
 
 	/** @var ForumTopic */
 	protected $topic;
+
+	/** @var ForumThread */
+	protected $thread;
 
 	public function renderDefault()
 	{
@@ -55,7 +59,12 @@ class ForumPresenter extends BaseGamePresenter
 		}
 		if($id) {
 			try {
-				$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($this->forumFacade->getTopic($id));
+				$topic = $this->forumFacade->getTopic($id);
+				if(!$this->forumFacade->canUserSeeTopic($this->user, $topic)) {
+					$this->flashError('Nemáš přístup k tomuto tématu.');
+					$this->redirect('default');
+				}
+				$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($topic);
 			} catch(RepositoryException $e) {
 				$this->flashError($e->getMessage());
 				$this->redirect('default');
@@ -69,6 +78,10 @@ class ForumPresenter extends BaseGamePresenter
 	{
 		try {
 			$this->topic = $this->forumFacade->getTopic($id);
+			if(!$this->forumFacade->canUserSeeTopic($this->user, $this->topic)) {
+				$this->flashError('Nemáš přístup k tomuto tématu.');
+				$this->redirect('default');
+			}
 			$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($this->topic);
 		} catch(RepositoryException $e) {
 			$this->flashError($e->getMessage());
@@ -76,6 +89,40 @@ class ForumPresenter extends BaseGamePresenter
 		}
 		if(!$this->authorizator->isAdminAllowed($this->user, $this->game->slug, 'forum')) {
 			$this->flashError('Nemáš oprávnění k upravování témat.');
+			$this->redirect('default');
+		}
+	}
+
+	public function actionCreateThread($id)
+	{
+		if(!$this->user->isLoggedIn()) {
+			$this->flashError('Pro přidávání vláken se prosím přihlaš.');
+			$this->redirect('default');
+		}
+		try {
+			$this->topic = $this->forumFacade->getTopic($id);
+			if(!$this->forumFacade->canUserSeeTopic($this->user, $this->topic)) {
+				$this->flashError('Nemáš přístup k tomuto tématu.');
+				$this->redirect('default');
+			}
+			$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($this->topic);
+		} catch(RepositoryException $e) {
+			$this->flashError($e->getMessage());
+			$this->redirect('default');
+		}
+	}
+
+	public function actionEditThread($id)
+	{
+		try {
+			$this->template->thread = $this->thread = $this->forumFacade->getThread($id);
+			if(!$this->forumFacade->canUserSeeTopic($this->user, $this->thread->topic)) {
+				$this->flashError('Nemáš přístup k tomuto vláknu.');
+				$this->redirect('default');
+			}
+			$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($this->thread->topic);
+		} catch(RepositoryException $e) {
+			$this->flashError($e->getMessage());
 			$this->redirect('default');
 		}
 	}
@@ -144,5 +191,52 @@ class ForumPresenter extends BaseGamePresenter
 		$this->forumFacade->updateTopic($this->topic, $v);
 		$this->flashSuccess('Téma bylo upraveno');
 		$this->refresh();
+	}
+
+	protected function createThreadForm()
+	{
+		$form = $this->createForm();
+		$form->addText('title', 'Titulek')
+			->setRequired('Prosím zadej titulek');
+		return $form;
+	}
+
+	protected function createComponentCreateThreadForm()
+	{
+		$form = $this->createThreadForm();
+		$form->addTextArea('text', 'Obsah')
+			->setAttribute('class', 'ckeditor');
+		$form->addSubmit('CreateThread', 'Vytvořit vlákno');
+		$form->onSuccess[] = $this->CreateThreadFormSuccess;
+		return $form;
+	}
+
+	public function CreateThreadFormSuccess(Form $form)
+	{
+		$v = $form->getValues();
+		$thread = $this->forumFacade->createThread($this->userRepository->find($this->user->id), $this->topic, $v);
+		$this->flashSuccess('Vlákno bylo vytvořeno.');
+		$this->redirect('thread', array('id' => $thread->id));
+	}
+
+	protected function createComponentEditThreadForm()
+	{
+		$form = $this->createThreadForm();
+		$form->setDefaults($this->thread->getData(array('title')));
+		$form->addSubmit('editThread', 'Upravit titulek');
+		$form->onSuccess[] = $this->editThreadFormSuccess;
+		return $form;
+	}
+
+	public function editThreadFormSuccess(Form $form)
+	{
+		$v = $form->getValues();
+		try {
+			$thread = $this->forumFacade->getThread($this->params['id']);
+			$this->forumFacade->updateThread($thread, $v);
+		} catch(RepositoryException $e) {
+			$this->flashError($e->getMessage());
+			$this->redirect('default');
+		}
 	}
 }

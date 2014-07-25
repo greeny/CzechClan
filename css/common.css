@@ -45,3 +45,16 @@ table.table-bordered.table-forum tr td {
 	display: block;
 	height: 20px;
 }
+
+.progress-bar[aria-valuenow="0"] {
+	min-width: 30px;
+	color: #777;
+	background-color: transparent;
+	background-image: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.progress-bar[aria-valuenow="1"], .progress-bar[aria-valuenow="2"] {
+	min-width: 30px;
+}

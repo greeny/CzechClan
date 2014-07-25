@@ -1,0 +1,21 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Tvorba webu</h1>
+</div>
+
+{var $progresses = [
+	'Fórum' => 60,
+	'Upozornění' => 5,
+	'A-Team' => 0,
+	'Tickety' => 0,
+]}
+
+{foreach $progresses as $title => $progress}
+	<h3>{$title}</h3>
+
+	<div class="progress">
+		<div class="progress-bar" style="width: {$progress}%;" aria-valuenow="{$progress}" aria-valuemin="0" aria-valuemax="100">
+			{$progress}%
+		</div>
+	</div>
+{/foreach}

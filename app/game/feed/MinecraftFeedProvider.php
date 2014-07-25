@@ -11,6 +11,6 @@ class MinecraftFeedProvider extends BaseFeedProvider
 {
 	public function getInfo()
 	{
-		return Html::el('')->setHtml('Minecraft version <i>' . $this->getFeed()->version . '</i>');
+		return Html::el('')->setHtml('Minecraft verze <i>' . $this->getFeed()->version . '</i>');
 	}
 }

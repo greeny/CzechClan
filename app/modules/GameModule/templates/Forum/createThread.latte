@@ -6,7 +6,7 @@
 <ul class="breadcrumb">
 	<li><a n:href="default">{$currentGame->name} Fórum</a></li>
 	<li n:foreach="$breadcrumbs as $topic"><a n:href="topic $topic->id">{$topic->title}</a></li>
-	<li class="active">Nové téma</li>
+	<li class="active">Nové vlákno</li>
 </ul>
 
-{control createTopicForm}
+{control createThreadForm}

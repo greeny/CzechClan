@@ -15,7 +15,7 @@
 		<a n:if="$allowed" n:href="createTopic $topicId" class="btn btn-success">
 			<span class="icon-folder-o"></span> Nové téma
 		</a>
-		<a n:if="$user->isLoggedIn() && $topicId" n:href="createThread $topicId" class="btn btn-success disabled">
+		<a n:if="$user->isLoggedIn() && $topicId" n:href="createThread $topicId" class="btn btn-success">
 			<span class="icon-file-text-o"></span> Nové vlákno
 		</a>
 	</div>
@@ -49,7 +49,7 @@
 				</td>
 				<td>
 					{if $topic->lastPost}
-						<a n:href="thread#post-{$topic->lastPost->id} $topic->id"><b>{$topic->lastPost->title}</b></a><br>
+						<a n:href="thread#post-{$topic->lastPost->order} $topic->lastPost->thread->id"><b>{$topic->lastPost->title}</b></a><br>
 						Přidal {control user, $topic->lastPost->user} ({$topic->lastPost->datePosted|time})
 					{else}
 						-
@@ -105,11 +105,11 @@
 				<td n:if="$allowed">
 					<span class="btn-group">
 						<a n:href="editThread $thread->id" class="btn btn-default btn-xs"><span class="icon-fw icon-pencil"></span></a>
-						<a n:href="lockThread! $thread->id" class="btn btn-default btn-xs"><span n:class="icon-fw, $thread->locked ? icon-unlock : icon-lock"></span></a>
+						<a n:href="lockThread! $thread->id" class="disabled btn btn-default btn-xs"><span n:class="icon-fw, $thread->locked ? icon-unlock : icon-lock"></span></a>
 					</span>
 					<span class="btn-group">
-						<a n:href="deleteThread! $thread->id" class="btn btn-default btn-xs"><span class="icon-fw icon-times"></span></a>
-						<a n:href="pinThread! $thread->id" class="btn btn-default btn-xs"><span n:class="icon-fw, $thread->pinned ? icon-star : icon-star-o"></span></a>
+						<a n:href="deleteThread! $thread->id" class="disabled btn btn-default btn-xs"><span class="icon-fw icon-times"></span></a>
+						<a n:href="pinThread! $thread->id" class="disabled btn btn-default btn-xs"><span n:class="icon-fw, $thread->pinned ? icon-star : icon-star-o"></span></a>
 					</span>
 				</td>
 			</tr>

@@ -5,7 +5,7 @@
 
 namespace Tempeus\Model;
 
-class ForumThreadContentRepository extends BaseRepository
+class ForumPostContentRepository extends BaseRepository
 {
 
 }

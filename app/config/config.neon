@@ -31,8 +31,8 @@ services:
 	- Tempeus\Model\ArticleRepository
 	- Tempeus\Model\CategoryRepository
 	- Tempeus\Model\GameRepository
+	- Tempeus\Model\ForumPostContentRepository
 	- Tempeus\Model\ForumPostRepository
-	- Tempeus\Model\ForumThreadContentRepository
 	- Tempeus\Model\ForumThreadRepository
 	- Tempeus\Model\ForumTopicRepository
 	- Tempeus\Model\InformationRepository
