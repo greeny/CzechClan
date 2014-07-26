@@ -1,0 +1,13 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Fórum</h1>
+</div>
+
+<ul class="breadcrumb">
+	<li><a n:href="default">{$currentGame->name} Fórum</a></li>
+	<li n:foreach="$breadcrumbs as $topic"><a n:href="topic $topic->id">{$topic->title}</a></li>
+	<li><a n:href="thread $post->thread->id">Vlákno: {$post->thread->title}</a></li>
+	<li class="active">Upravit příspěvek #{$post->order}</li>
+</ul>
+
+{control editPostForm}
