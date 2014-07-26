@@ -37,6 +37,12 @@
 				<td>
 					<a name="post-{$post->order}" href="#post-{$post->order}">#{$post->order}</a>
 					<b>{$post->title}</b>
+					<span class="pull-right">
+						{if $post->user->id === $user->id}
+							<a n:href="editPost $post->id">Upravit</a>{* &middot;
+							<a n:href="deletePost!">Smazat</a> *}
+						{/if}
+					</span>
 					<hr>
 					{$post->content->text|noescape}
 					{if $post->timesEdited}

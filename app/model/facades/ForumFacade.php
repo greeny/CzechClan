@@ -57,6 +57,14 @@ class ForumFacade extends BaseFacade
 		return $thread;
 	}
 
+	public function getPost($postId)
+	{
+		if(!$post = $this->postRepository->find($postId)) {
+			throw new RepositoryException("Tento příspěvek neexistuje.");
+		}
+		return $post;
+	}
+
 	public function getPostsInThread(ForumThread $thread, Paginator $paginator)
 	{
 		return $this->postRepository->findByThread($thread, $paginator);
@@ -227,6 +235,16 @@ class ForumFacade extends BaseFacade
 		$this->commit();
 
 		return $post;
+	}
+
+	public function updatePost(ForumPost $post, ArrayHash $values)
+	{
+		$post->title = $values->title;
+		$post->content->text = $values->text;
+		$post->timesEdited++;
+		$post->dateLastEdit = Time();
+		$this->postRepository->persist($post);
+		$this->postContentRepository->persist($post->content);
 	}
 
 	public function pinThread(ForumThread $thread)

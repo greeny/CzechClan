@@ -8,6 +8,7 @@ namespace Tempeus\GameModule;
 use Nette\Utils\Paginator;
 use Tempeus\Controls\Form;
 use Tempeus\Model\ForumFacade;
+use Tempeus\Model\ForumPost;
 use Tempeus\Model\ForumThread;
 use Tempeus\Model\ForumTopic;
 use Tempeus\Model\RepositoryException;
@@ -22,6 +23,9 @@ class ForumPresenter extends BaseGamePresenter
 
 	/** @var ForumThread */
 	protected $thread;
+
+	/** @var ForumPost */
+	protected $post;
 
 	public function renderDefault()
 	{
@@ -141,6 +145,21 @@ class ForumPresenter extends BaseGamePresenter
 				$this->redirect('default');
 			}
 			$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($this->thread->topic);
+		} catch(RepositoryException $e) {
+			$this->flashError($e->getMessage());
+			$this->redirect('default');
+		}
+	}
+
+	public function actionEditPost($id)
+	{
+		try {
+			$this->template->post = $this->post = $this->forumFacade->getPost($id);
+			if(!$this->forumFacade->canUserSeeTopic($this->user, $this->post->thread->topic)) {
+				$this->flashError('Nemáš přístup k tomuto příspěvku.');
+				$this->redirect('default');
+			}
+			$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForThread($this->post->thread);
 		} catch(RepositoryException $e) {
 			$this->flashError($e->getMessage());
 			$this->redirect('default');
@@ -301,5 +320,23 @@ class ForumPresenter extends BaseGamePresenter
 		$post = $this->forumFacade->createPost($this->userRepository->find($this->user->id), $this->thread, $v);
 		$this->flashSuccess('Příspěvek byl přidán');
 		$this->redirect('thread#post-'.$post->order, array('id' => $this->thread->id, 'page' => $post->page));
+	}
+
+	protected function createComponentEditPostForm()
+	{
+		$form = $this->createPostForm();
+		$form->setDefaults($this->post->getData(array('title')));
+		$form->setDefaults($this->post->content->getData(array('text')));
+		$form->addSubmit('editPost', 'Upravit příspěvek');
+		$form->onSuccess[] = $this->editPostFormSuccess;
+		return $form;
+	}
+
+	public function editPostFormSuccess(Form $form)
+	{
+		$v = $form->getValues();
+		$this->forumFacade->updatePost($this->post, $v);
+		$this->flashSuccess('Příspěvek byl přidán');
+		$this->redirect('thread#post-'.$this->post->order, array('id' => $this->post->thread->id, 'page' => $this->post->page));
 	}
 }
