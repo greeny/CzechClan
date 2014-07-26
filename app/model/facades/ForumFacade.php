@@ -8,6 +8,7 @@ namespace Tempeus\Model;
 use LeanMapper\Connection;
 use Nette\Security\User as NUser;
 use Nette\Utils\ArrayHash;
+use Nette\Utils\Paginator;
 
 class ForumFacade extends BaseFacade
 {
@@ -50,12 +51,20 @@ class ForumFacade extends BaseFacade
 
 	public function getThread($threadId)
 	{
-		return $this->threadRepository->find($threadId);
+		if(!$thread = $this->threadRepository->find($threadId)) {
+			throw new RepositoryException("Toto vlákno neexistuje.");
+		}
+		return $thread;
 	}
 
-	public function getPostsInThread(ForumThread $thread)
+	public function getPostsInThread(ForumThread $thread, Paginator $paginator)
 	{
-		return $this->postRepository->findByThread($thread);
+		return $this->postRepository->findByThread($thread, $paginator);
+	}
+
+	public function countPostsInThread(ForumThread $thread)
+	{
+		return $this->postRepository->countByThread($thread);
 	}
 
 	public function getTopics(Game $game, NUser $user, ForumTopic $parent = NULL)
@@ -191,6 +200,33 @@ class ForumFacade extends BaseFacade
 		$thread->update($values);
 		$this->threadRepository->persist($thread);
 		return $thread;
+	}
+
+	public function createPost(User $user, ForumThread $thread, ArrayHash $values)
+	{
+		$this->startTransaction();
+		$this->lockTables(array('forum_post', 'forum_post_content'));
+
+		$postContent = new ForumPostContent();
+		$postContent->post = NULL;
+		$postContent->text = $values->text;
+		$this->postContentRepository->persist($postContent);
+
+		$post = new ForumPost();
+		$post->datePosted = Time();
+		$post->order = $this->postRepository->getNextOrder($thread);
+		$post->thread = $thread;
+		$post->title = $values->title;
+		$post->user = $user;
+		$this->postRepository->persist($post);
+
+		$postContent->post = $post;
+		$this->postContentRepository->persist($postContent);
+
+		$this->unlockTables();
+		$this->commit();
+
+		return $post;
 	}
 
 	public static function canUserSeeTopic(NUser $user, ForumTopic $topic)

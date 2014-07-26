@@ -15,8 +15,12 @@ namespace Tempeus\Model;
  * @property int $datePosted (date_posted)
  * @property int $timesEdited = 0 (times_edited)
  * @property int $dateLastEdit = 0 (date_last_edit)
+ * @property-read int $page
  */
 class ForumPost extends BaseEntity
 {
-
+	public function getPage()
+	{
+		return (int) (($this->order - 1) / 25) + 1;
+	}
 }

@@ -9,8 +9,25 @@
 	<li n:if="isset($thread)" class="active">Vlákno: {$thread->title}</li>
 </ul>
 
+<div n:if="$user->isLoggedIn()" class="well well-sm">
+	<a class="btn btn-success" n:href="createPost $thread->id">Přidat příspěvek</a>
+</div>
+
+<div>
+	<span class="pull-right">
+		{include paginator, paginator => $paginator}
+	</span>
+</div>
+
 <div class="table-responsive">
 	<table class="table table-bordered table-forum">
+		<thead>
+			<tr>
+				<th colspan="2">
+					<div class="text-center">Vlákno: {$thread->title} (založil {control user, $thread->user})</div>
+				</th>
+			</tr>
+		</thead>
 		<tbody>
 			<tr n:foreach="$posts as $post" id="post-{$post->order}">
 				<td style="width: 20%">
@@ -18,7 +35,7 @@
 					{$post->datePosted|time}
 				</td>
 				<td>
-					<a name="post-{$post->order}" href="#post-{$post->order}">[#{$post->order}]</a>
+					<a name="post-{$post->order}" href="#post-{$post->order}">#{$post->order}</a>
 					<b>{$post->title}</b>
 					<hr>
 					{$post->content->text|noescape}
@@ -30,4 +47,14 @@
 			</tr>
 		</tbody>
 	</table>
+</div>
+
+<div n:if="$user->isLoggedIn()" class="well well-sm">
+	<a class="btn btn-success" n:href="createPost $thread->id">Přidat příspěvek</a>
+</div>
+
+<div class="pull-right">
+	<span>
+		{include paginator, paginator => $paginator}
+	</span>
 </div>

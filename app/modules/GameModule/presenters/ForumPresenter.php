@@ -5,6 +5,7 @@
 
 namespace Tempeus\GameModule;
 
+use Nette\Utils\Paginator;
 use Tempeus\Controls\Form;
 use Tempeus\Model\ForumFacade;
 use Tempeus\Model\ForumThread;
@@ -44,11 +45,15 @@ class ForumPresenter extends BaseGamePresenter
 		}
 	}
 
-	public function renderThread($id)
+	public function renderThread($id, $page = 1)
 	{
-		$this->template->thread = $thread = $this->forumFacade->getThread($id);
-		$this->template->posts = $this->forumFacade->getPostsInThread($thread);
-		$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForThread($thread);
+		$this->template->thread = $this->thread = $this->forumFacade->getThread($id);
+		$this->template->paginator = $paginator = new Paginator;
+		$paginator->page = $page;
+		$paginator->itemsPerPage = 25;
+		$paginator->itemCount = $this->forumFacade->countPostsInThread($this->thread);
+		$this->template->posts = $this->forumFacade->getPostsInThread($this->thread, $paginator);
+		$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForThread($this->thread);
 	}
 
 	public function actionCreateTopic($id = NULL)
@@ -113,6 +118,21 @@ class ForumPresenter extends BaseGamePresenter
 	}
 
 	public function actionEditThread($id)
+	{
+		try {
+			$this->template->thread = $this->thread = $this->forumFacade->getThread($id);
+			if(!$this->forumFacade->canUserSeeTopic($this->user, $this->thread->topic)) {
+				$this->flashError('Nemáš přístup k tomuto vláknu.');
+				$this->redirect('default');
+			}
+			$this->template->breadcrumbs = $this->forumFacade->getBreadcrumbsForTopic($this->thread->topic);
+		} catch(RepositoryException $e) {
+			$this->flashError($e->getMessage());
+			$this->redirect('default');
+		}
+	}
+
+	public function actionCreatePost($id)
 	{
 		try {
 			$this->template->thread = $this->thread = $this->forumFacade->getThread($id);
@@ -234,9 +254,38 @@ class ForumPresenter extends BaseGamePresenter
 		try {
 			$thread = $this->forumFacade->getThread($this->params['id']);
 			$this->forumFacade->updateThread($thread, $v);
+			$this->flashSuccess('Vlákno bylo upraveno');
+			$this->redirect('topic', array('id' => $thread->topic->id));
 		} catch(RepositoryException $e) {
 			$this->flashError($e->getMessage());
 			$this->redirect('default');
 		}
+	}
+
+	protected function createPostForm()
+	{
+		$form = $this->createForm();
+		$form->addText('title', 'Titulek')
+			->setRequired('');
+		$form->addTextArea('text', 'Text')
+			->setAttribute('class', 'ckeditor');
+		return $form;
+	}
+
+	protected function createComponentCreatePostForm()
+	{
+		$form = $this->createPostForm();
+		$form->setDefaults(array('title' => 'Re: ' . $this->thread->title));
+		$form->addSubmit('createPost', 'Přidat příspěvek');
+		$form->onSuccess[] = $this->createPostFormSuccess;
+		return $form;
+	}
+
+	public function createPostFormSuccess(Form $form)
+	{
+		$v = $form->getValues();
+		$post = $this->forumFacade->createPost($this->userRepository->find($this->user->id), $this->thread, $v);
+		$this->flashSuccess('Příspěvek byl přidán');
+		$this->redirect('thread#post-'.$post->order, array('id' => $this->thread->id, 'page' => $post->page));
 	}
 }
