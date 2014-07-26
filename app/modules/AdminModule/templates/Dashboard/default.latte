@@ -62,4 +62,16 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" n:if="$presenter->isGameAllowed('general', 'log')">
+		<div class="well well-sm">
+			<h3 class="text-center">Logy</h3 class="text-center">
+			<p>Výpisy důležitých akcí uživatelů.</p>
+			<div class="text-center">
+				<span class="btn-group">
+					<a n:href=":Admin:Log:default slug => general" class="btn btn-default btn-xs">
+						<span class="icon-list"></span> Logy</a>
+				</span>
+			</div>
+		</div>
+	</div>
 </div>

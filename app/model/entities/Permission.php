@@ -17,6 +17,7 @@ class Permission extends BaseEntity
 		'user' => 'Administrace uživatelů',
 		'role' => 'Administrace rolí',
 		'game' => 'Administrace her',
+		'log' => 'Zobrazování logů',
 	);
 
 	public static $specificResources = array(

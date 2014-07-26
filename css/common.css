@@ -58,3 +58,7 @@ table.table-bordered.table-forum tr td {
 .progress-bar[aria-valuenow="1"], .progress-bar[aria-valuenow="2"] {
 	min-width: 30px;
 }
+
+.well {
+	margin-bottom: 0;
+}

@@ -1,0 +1,27 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Logy</h1>
+</div>
+
+<div class="table-responsive">
+	<table class="table table-condensed table-striped table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>Čas</th>
+				<th>IP</th>
+				<th>Akce</th>
+				<th>Data</th>
+				<th>Prohlížeč</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr n:foreach="$logs as $log">
+				<td>{$log->time|time}</td>
+				<td>{$log->ip}</td>
+				<td>{$log->action}</td>
+				<td>{\Tracy\Dumper::toHtml(unserialize($log->data))|noescape}</td>
+				<td>{\Tracy\Dumper::toHtml(unserialize($log->browser))|noescape}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
