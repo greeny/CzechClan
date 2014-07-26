@@ -36,6 +36,7 @@ services:
 	- Tempeus\Model\ForumThreadRepository
 	- Tempeus\Model\ForumTopicRepository
 	- Tempeus\Model\InformationRepository
+	- Tempeus\Model\LogRepository
 	- Tempeus\Model\PermissionRepository
 	- Tempeus\Model\RoleRepository
 	- Tempeus\Model\UserRepository

@@ -48,6 +48,7 @@ class SignPresenter extends BaseUserPresenter
 			Pro ověření emailu klikni na tento odkaz: ".$this->link("//:User:Profile:verify", array('id' => $user->nick,
 					'code' => $user->salt)).'.<br><br>Hodně štěstí ve hře ti přeje Tempeus Admin Team.');
 			$this->mailer->send($mail);
+			$this->logRepository->addLog('register', array('user_id' => $user->id));
 			$this->flashSuccess('Registrace proběhla úspěšně, zkontrolujte si svůj email.');
 			$this->redirect(':Public:Dashboard:default');
 		} catch(AuthenticationException $e) {

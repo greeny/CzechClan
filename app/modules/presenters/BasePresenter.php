@@ -6,6 +6,7 @@ use Tempeus\Controls\Category;
 use Tempeus\Controls\User;
 use Tempeus\Mail\TempeusMailer;
 use Tempeus\Model\GameRepository;
+use Tempeus\Model\LogRepository;
 use Tempeus\Model\UserRepository;
 use Tempeus\Security\Authorizator;
 use Tempeus\Templating\Helpers;
@@ -23,6 +24,9 @@ abstract class BasePresenter extends Presenter
 
 	/** @var UserRepository @inject */
 	public $userRepository;
+
+	/** @var LogRepository @inject */
+	public $logRepository;
 
 	/** @var Authorizator @inject */
 	public $authorizator;
@@ -48,6 +52,7 @@ abstract class BasePresenter extends Presenter
 	public function handleLogout()
 	{
 		if($this->user->isLoggedIn()) {
+			$this->logRepository->addLog('logout', array('user_id' => $this->user->id));
 			$this->user->logout(TRUE);
 			$this->flashSuccess('Byl jsi odhlášen.');
 		}
@@ -75,8 +80,10 @@ abstract class BasePresenter extends Presenter
 		try {
 			$this->user->login($v->nick, $v->password);
 			$this->user->setExpiration('+14 days', FALSE, TRUE);
+			$this->logRepository->addLog('login_success', array('user_id' => $this->user->id));
 			$this->flashSuccess('Přihlášení proběhlo úspěšně.');
 		} catch(AuthenticationException $e) {
+			$this->logRepository->addLog('login_fail', array('user_name' => $v->nick, 'password' => str_repeat('*', strlen($v->password))));
 			$this->flashError($e->getMessage());
 		}
 		$this->refresh();

@@ -24,9 +24,11 @@ class ProfilePresenter extends BaseUserPresenter
 	{
 		try {
 			$this->userRepository->verifyUser($this->userRepository->findByNick($id), $code);
+			$this->logRepository->addLog('verify_success', array('user_id' => $id, 'code' => $code));
 			$this->flashSuccess('Ověření proběhlo úspěšně, nyní se můžete přihlásit.');
 			$this->redirect(':Public:Dashboard:default');
 		} catch(RepositoryException $e) {
+			$this->logRepository->addLog('verify_fail', array('user_id' => $id, 'code' => $code));
 			$this->flashError($e->getMessage());
 			$this->redirect(':Public:Dashboard:default');
 		}
