@@ -229,6 +229,18 @@ class ForumFacade extends BaseFacade
 		return $post;
 	}
 
+	public function pinThread(ForumThread $thread)
+	{
+		$thread->pinned = !$thread->pinned;
+		$this->threadRepository->persist($thread);
+	}
+
+	public function lockThread(ForumThread $thread)
+	{
+		$thread->locked = !$thread->locked;
+		$this->threadRepository->persist($thread);
+	}
+
 	public static function canUserSeeTopic(NUser $user, ForumTopic $topic)
 	{
 		if($topic->public || in_array('owner', $user->getRoles())) {

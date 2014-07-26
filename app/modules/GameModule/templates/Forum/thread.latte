@@ -9,7 +9,7 @@
 	<li n:if="isset($thread)" class="active">Vlákno: {$thread->title}</li>
 </ul>
 
-<div n:if="$user->isLoggedIn()" class="well well-sm">
+<div n:if="$user->isLoggedIn() && !$thread->locked" class="well well-sm">
 	<a class="btn btn-success" n:href="createPost $thread->id">Přidat příspěvek</a>
 </div>
 
@@ -49,7 +49,7 @@
 	</table>
 </div>
 
-<div n:if="$user->isLoggedIn()" class="well well-sm">
+<div n:if="$user->isLoggedIn() && !$thread->locked" class="well well-sm">
 	<a class="btn btn-success" n:href="createPost $thread->id">Přidat příspěvek</a>
 </div>
 

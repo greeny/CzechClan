@@ -105,11 +105,11 @@
 				<td n:if="$allowed">
 					<span class="btn-group">
 						<a n:href="editThread $thread->id" class="btn btn-default btn-xs"><span class="icon-fw icon-pencil"></span></a>
-						<a n:href="lockThread! $thread->id" class="disabled btn btn-default btn-xs"><span n:class="icon-fw, $thread->locked ? icon-unlock : icon-lock"></span></a>
+						<a n:href="lockThread! $thread->id" class="btn btn-default btn-xs"><span n:class="icon-fw, $thread->locked ? icon-unlock : icon-lock"></span></a>
 					</span>
 					<span class="btn-group">
 						<a n:href="deleteThread! $thread->id" class="disabled btn btn-default btn-xs"><span class="icon-fw icon-times"></span></a>
-						<a n:href="pinThread! $thread->id" class="disabled btn btn-default btn-xs"><span n:class="icon-fw, $thread->pinned ? icon-star : icon-star-o"></span></a>
+						<a n:href="pinThread! $thread->id" class="btn btn-default btn-xs"><span n:class="icon-fw, $thread->pinned ? icon-star : icon-star-o"></span></a>
 					</span>
 				</td>
 			</tr>

@@ -163,6 +163,20 @@ class ForumPresenter extends BaseGamePresenter
 
 	}
 
+	public function handlePinThread($threadId)
+	{
+		$thread = $this->forumFacade->getThread($threadId);
+		$this->forumFacade->pinThread($thread);
+		$this->refresh();
+	}
+
+	public function handleLockThread($threadId)
+	{
+		$thread = $this->forumFacade->getThread($threadId);
+		$this->forumFacade->lockThread($thread);
+		$this->refresh();
+	}
+
 	protected function createTopicForm()
 	{
 		$form = $this->createForm();
