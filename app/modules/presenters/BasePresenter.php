@@ -83,7 +83,7 @@ abstract class BasePresenter extends Presenter
 			$this->logRepository->addLog('login_success', array('user_id' => $this->user->id));
 			$this->flashSuccess('Přihlášení proběhlo úspěšně.');
 		} catch(AuthenticationException $e) {
-			$this->logRepository->addLog('login_fail', array('user_name' => $v->nick, 'password' => str_repeat('*', strlen($v->password))));
+			$this->logRepository->addLog('login_fail', array('user_name' => $v->nick, 'password_length' => strlen($v->password)));
 			$this->flashError($e->getMessage());
 		}
 		$this->refresh();
