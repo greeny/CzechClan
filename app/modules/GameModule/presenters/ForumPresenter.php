@@ -12,11 +12,15 @@ use Tempeus\Model\ForumPost;
 use Tempeus\Model\ForumThread;
 use Tempeus\Model\ForumTopic;
 use Tempeus\Model\RepositoryException;
+use Tempeus\Model\RoleRepository;
 
 class ForumPresenter extends BaseGamePresenter
 {
 	/** @var ForumFacade @inject */
 	public $forumFacade;
+
+	/** @var RoleRepository @inject */
+	public $roleRepository;
 
 	/** @var ForumTopic */
 	protected $topic;
@@ -196,6 +200,24 @@ class ForumPresenter extends BaseGamePresenter
 		$this->refresh();
 	}
 
+	public function handleRemoveUserFromTopic($userId)
+	{
+		if(!$user = $this->userRepository->find($userId)) {
+			$this->refresh();
+		}
+		$this->forumFacade->removeUserFromTopic($user, $this->topic);
+		$this->refresh();
+	}
+
+	public function handleRemoveRoleFromTopic($roleId)
+	{
+		if(!$role = $this->roleRepository->find($roleId)) {
+			$this->refresh();
+		}
+		$this->forumFacade->removeRoleFromTopic($role, $this->topic);
+		$this->refresh();
+	}
+
 	protected function createTopicForm()
 	{
 		$form = $this->createForm();
@@ -338,5 +360,52 @@ class ForumPresenter extends BaseGamePresenter
 		$this->forumFacade->updatePost($this->post, $v);
 		$this->flashSuccess('Příspěvek byl přidán');
 		$this->redirect('thread#post-'.$this->post->order, array('id' => $this->post->thread->id, 'page' => $this->post->page));
+	}
+
+	protected function createComponentAddUserToTopicForm()
+	{
+		$form = $this->createForm();
+		$form->addText('nick', 'Nick')
+			->setRequired('Prosím zadej nick uživatele');
+		$form->addSubmit('addUserToTopic', 'Přidat uživatele');
+		$form->onSuccess[] = $this->addUserToTopicFormSuccess;
+		return $form;
+	}
+
+	public function addUserToTopicFormSuccess(Form $form)
+	{
+		$v = $form->getValues();
+		if(!$user = $this->userRepository->findByNick($v->nick)) {
+			$this->flashError("Uživatel '$v->nick' neexistuje.");
+			$this->refresh();
+		}
+		$this->forumFacade->addUserToTopic($user, $this->topic);
+		$this->refresh();
+	}
+
+	protected function createComponentAddRoleToTopicForm()
+	{
+		$form = $this->createForm();
+		$blacklist = array();
+		foreach($this->topic->allowedRoles as $role) {
+			$blacklist[] = $role->id;
+		}
+		$form->addSelect('role', 'Role', $this->roleRepository->findPairsWithBlacklist($blacklist))
+			->setPrompt(' - Vyberte roli - ')
+			->setRequired('Prosím zadej roli uživatele.');
+		$form->addSubmit('addRoleToTopic', 'Přidat roli');
+		$form->onSuccess[] = $this->addRoleToTopicFormSuccess;
+		return $form;
+	}
+
+	public function addRoleToTopicFormSuccess(Form $form)
+	{
+		$v = $form->getValues();
+		if(!$role = $this->roleRepository->find($v->role)) {
+			$this->flashError("Role neexistuje.");
+			$this->refresh();
+		}
+		$this->forumFacade->addRoleToTopic($role, $this->topic);
+		$this->refresh();
 	}
 }

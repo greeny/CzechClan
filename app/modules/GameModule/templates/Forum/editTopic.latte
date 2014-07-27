@@ -10,3 +10,26 @@
 </ul>
 
 {control editTopicForm}
+
+<div class="row" n:if="!$topic->public">
+	<h2>Seznam uživatelů / rolí, kteří uvidí téma</h2>
+	<div class="col-sm-6 col-xs-12">
+		<h3>Uživatelé</h3>
+		{control addUserToTopicForm}
+		<ul>
+			<li n:foreach="$topic->allowedUsers as $allowedUser">
+				<a n:href="removeUserFromTopic! userId => $allowedUser->id" class="btn btn-danger btn-xs"><span class="icon-times"></span></a>
+				{control user, $allowedUser}</li>
+		</ul>
+	</div>
+	<div class="col-sm-6 col-xs-12">
+		<h3>Role</h3>
+		{control addRoleToTopicForm}
+		<ul>
+			<li n:foreach="$topic->allowedRoles as $allowedRole">
+				<a n:href="removeRoleFromTopic! roleId => $allowedRole->id" class="btn btn-danger btn-xs"><span class="icon-times"></span></a>
+				{$allowedRole->name}
+			</li>
+		</ul>
+	</div>
+</div>

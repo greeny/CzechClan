@@ -292,6 +292,36 @@ class ForumFacade extends BaseFacade
 		return FALSE;
 	}
 
+	public function addUserToTopic(User $user, ForumTopic $topic)
+	{
+		foreach($topic->allowedUsers as $u) {
+			if($u->id === $user->id) return;
+		}
+		$topic->addToAllowedUsers($user);
+		$this->topicRepository->persist($topic);
+	}
+
+	public function addRoleToTopic(Role $role, ForumTopic $topic)
+	{
+		foreach($topic->allowedRoles as $r) {
+			if($r->id === $role->id) return;
+		}
+		$topic->addToAllowedRoles($role);
+		$this->topicRepository->persist($topic);
+	}
+
+	public function removeUserFromTopic(User $user, ForumTopic $topic)
+	{
+		$topic->removeFromAllowedUsers($user);
+		$this->topicRepository->persist($topic);
+	}
+
+	public function removeRoleFromTopic(Role $role, ForumTopic $topic)
+	{
+		$topic->removeFromAllowedRoles($role);
+		$this->topicRepository->persist($topic);
+	}
+
 	protected function lockTables(array $tables)
 	{
 		$query = array();
