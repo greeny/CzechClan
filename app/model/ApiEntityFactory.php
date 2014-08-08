@@ -7,6 +7,7 @@ namespace Tempeus\Model;
 
 use Nette\Object;
 use Tempeus\ApiModule\BaseApiPresenter;
+use Latte\Runtime\Filters;
 
 class ApiEntityFactory extends Object
 {
@@ -104,7 +105,7 @@ class ApiEntityFactory extends Object
 	{
 		return array(
 			'id' => $message->id,
-			'message' => $message->message,
+			'message' => Filters::escapeHtml($message->message),
 			'user' => $message->user->id,
 			'time' => $message->time * 1000,
 		);
