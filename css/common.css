@@ -81,3 +81,14 @@ table.logs tr td:nth-child(5) {
 .log-toggle {
 	cursor: pointer;
 }
+
+.beta {
+	display: inline-block;
+	position: relative;
+	left: -15px;
+	top: 5px;
+	font-size: 9px;
+	transform: rotate(-30deg);
+	-ms-transform:rotate(-30deg);
+	-webkit-transform:rotate(-30deg);
+}
