@@ -39,7 +39,7 @@ class GameRepository extends BaseRepository
 
 	public function addGame(ArrayHash $data)
 	{
-		if(in_array($data->slug, array('general', 'user', 'admin', 'api', 'web'))) {
+		if(in_array($data->slug, array('general', 'user', 'admin', 'api', 'web', 'chat'))) {
 			throw new RepositoryException("Zkratka '$data->slug' nemůže být použita.");
 		}
 		if($this->findBySlug($data->slug)) {

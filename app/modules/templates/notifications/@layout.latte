@@ -1,6 +1,11 @@
 {default $notifications = array()}
-<li n:class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="badge" id="notificationCount">{count($notifications)}</span></a>
+<li>
+	<a n:href=":Chat:Dashboard:default" target="_blank">
+		<span class="icon-comments"></span> Chat <span class="badge" id="chatCount">{count($notifications) ?: ''}</span>
+	</a>
+</li>
+<li class="dropdown">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Upozornění <span class="badge" id="notificationCount">{count($notifications) ?: ''}</span></a>
 	<ul class="dropdown-menu">
 		<li class="disabled">
 			<a href="#">Under construction</a>

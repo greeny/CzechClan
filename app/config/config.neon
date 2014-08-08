@@ -35,6 +35,9 @@ services:
 	- Tempeus\Model\ForumPostRepository
 	- Tempeus\Model\ForumThreadRepository
 	- Tempeus\Model\ForumTopicRepository
+	- Tempeus\Model\ChatMessageRepository
+	- Tempeus\Model\ChatSessionRepository
+	- Tempeus\Model\ChatRoomRepository
 	- Tempeus\Model\InformationRepository
 	- Tempeus\Model\LogRepository
 	- Tempeus\Model\PermissionRepository

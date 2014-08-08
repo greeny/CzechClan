@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="{$robots}" n:ifset="$robots">
+
+	<title>Chat &middot; Tempeus</title>
+
+	<link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{$basePath}/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="{$basePath}/css/font-awesome.css">
+	<link rel="stylesheet" href="{$basePath}/css/php-highlighter.css">
+	<link rel="stylesheet" href="{$basePath}/css/common.css">
+	<link rel="stylesheet" href="{$basePath}/css/chat.css">
+	{block head}{/block}
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" onclick="return false;">Tempeus.eu chat <span class="beta label">BETA</span></a>
+			</div>
+
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" target="_blank" id="userLink"></a></li>
+					<li><a n:href=":Public:Dashboard:default" target="_blank"><span class="icon-home"></span> Zpět na Tempeus.eu</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar" id="sidebar">
+				<ul class="nav nav-sidebar" id="room-list-static">
+					<!--<li class="disabled"><a href="#" data-link="rooms"><span class="icon-hdd-o icon-fw"></span> Místnosti</a></li>-->
+					<li class="disabled"><a href="#" data-link="users"><span class="icon-users icon-fw"></span> Online uživatelé</a></li>
+					<li class="nav-divider"></li>
+					<li class="disabled"><a href="#" data-link="room:global"><span class="icon-comments icon-fw"></span> Chat <span class="text-right badge" data-message-count="global"></span></a></li>
+				</ul>
+				<ul class="nav nav-sidebar" id="room-list">
+				</ul>
+			</div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 chat" id="chat" style="display: none;">
+				<div class="table-responsive">
+					<table class="table table-chat table-condensed table-striped table-hover">
+						<tbody id="chat-content">
+						</tbody>
+						<tfoot>
+							<tr>
+								<td>
+									<label for="input">Nová zpráva</label>
+								</td>
+								<td colspan="2">
+									<div class="input-group">
+										<input id="input" type="text" class="form-control">
+										<span class="input-group-btn">
+											<button class="btn btn-default" id="send"><span class="icon-check"></span></button>
+										</span>
+									</div>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 page" id="page">
+				<div id="page-content">
+				</div>
+				<div class="page-content-centered" id="page-content-centered">
+					Prosím aktivujte si JavaScript ve vašem prohlížeči
+				</div>
+			</div>
+			<div class="debug-toggle">Log</div>
+			<div class="debug-log" style="display: none;"></div>
+		</div>
+	</div>
+
+	<script src="{$basePath}/js/jquery.js"></script>
+	<script src="{$basePath}/js/netteForms.js"></script>
+	<script src="{$basePath}/js/bootstrap.min.js"></script>
+	<script src="{$basePath}/js/ckeditor/ckeditor.js"></script>
+	<script src="{$basePath}/js/common.js"></script>
+	<script src="{$basePath}/js/chat.js"></script>
+
+	<script type="text/javascript">
+		chat.run({plink //:Api:Dashboard:default, version => v1});
+	</script>
+</body>

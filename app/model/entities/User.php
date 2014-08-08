@@ -16,11 +16,23 @@ use Tempeus\Security\PasswordHasher;
  * @property string $role
  * @property bool $verified = FALSE
  * @property Role[] $roles m:hasMany
+ * @property ChatRoom[] $allowedRooms m:hasMany(:chat_room_user)
  */
 class User extends BaseEntity
 {
 	public function fixPassword($password)
 	{
 		$this->password = PasswordHasher::hashPassword($this->nick, $password, $this->salt);
+	}
+
+	/**
+	 * @return int[]
+	 */
+	public function getRoomIds()
+	{
+		if(!count($this->allowedRooms)) return array();
+		return array_map(function(ChatRoom $room) {
+			return $room->id;
+		}, $this->allowedRooms);
 	}
 }
