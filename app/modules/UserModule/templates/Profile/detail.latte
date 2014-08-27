@@ -2,3 +2,46 @@
 <div class="page-header">
 	<h1 n:inner-block="title">Profil uživatele {$u->nick}</h1>
 </div>
+
+<div class="table-responsive">
+	<table class="table table-hover table-condensed table-striped">
+		<thead>
+			<tr>
+				<th>Zobrazované jméno</th>
+				<th>{control user, $u}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Potvrzený email</td>
+				<td><span class="icon-{$u->verified ? 'check' : 'times'}"></span></td>
+			</tr>
+			<tr>
+				<td>Napsaných článků</td>
+				<td>{count($u->articles)}</td>
+			</tr>
+			<tr>
+				<td>Počet vláken na fóru</td>
+				<td>{count($u->forumThreads)}</td>
+			</tr>
+			<tr>
+				<td>Počet příspěvků na fóru</td>
+				<td>{count($u->forumPosts)}</td>
+			</tr>
+			<tr>
+				<td>Počet zpráv na chatu</td>
+				<td>{count($u->chatMessages)}</td>
+			</tr>
+			<tr>
+				<td>Čas strávený na chatu</td>
+				<td>{$u->chatTime|timeSpent}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<h2>Napsat uživateli {$u->nick} email</h2>
+
+{if $u->allowedEmails && $u->id !== $user->id}
+	{control contactUserForm}
+{/if}

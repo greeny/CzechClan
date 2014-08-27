@@ -15,8 +15,14 @@ use Tempeus\Security\PasswordHasher;
  * @property string $salt
  * @property string $role
  * @property bool $verified = FALSE
+ * @property bool $allowedEmails = TRUE (allowed_emails)
  * @property Role[] $roles m:hasMany
+ * @property Article[] $articles m:belongsToMany
  * @property ChatRoom[] $allowedRooms m:hasMany(:chat_room_user)
+ * @property ForumPost[] $forumPosts m:belongsToMany
+ * @property ForumThread[] $forumThreads m:belongsToMany
+ * @property ChatMessage[] $chatMessages m:belongsToMany
+ * @property ChatSession[] $chatSessions m:belongsToMany
  */
 class User extends BaseEntity
 {
@@ -34,5 +40,14 @@ class User extends BaseEntity
 		return array_map(function(ChatRoom $room) {
 			return $room->id;
 		}, $this->allowedRooms);
+	}
+
+	public function getChatTime()
+	{
+		$time = 0;
+		foreach($this->chatSessions as $session) {
+			$time += $session->dateChecked - $session->dateStarted;
+		}
+		return $time;
 	}
 }

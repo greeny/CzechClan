@@ -22,7 +22,9 @@ class TempeusMailer extends SendmailMailer
 
 	public function send(Message $mail)
 	{
-		$mail->setFrom($this->fromEmail, $this->fromName);
+		if(!$mail->getFrom()) {
+			$mail->setFrom($this->fromEmail, $this->fromName);
+		}
 		parent::send($mail);
 	}
 }

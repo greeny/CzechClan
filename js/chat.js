@@ -309,10 +309,14 @@ var Chat = function() {
 		if(el.length) {
 			return;
 		}
+		var date = new Date(arr.time);
+		var time = date.toLocaleDateString() === new Date().toLocaleDateString() ?
+			date.toLocaleTimeString() :
+			date.toLocaleString();
 		this.elements.chatContent.append('<tr data-message="' + arr.id + '"><td><span class="icon-user"></span> '
 			+ chat.data.users[arr.user].nick + '</td>' +
 			'<td>' + arr.message + '</td>' +
-			'<td>' + new Date(arr.time).toLocaleTimeString() + '</td></tr>');
+			'<td>' + time + '</td></tr>');
 		var ch = $('#chat');
 		console.log(ch.scrollTop());
 		ch.scrollTop(ch.scrollTop() + 30);
@@ -349,7 +353,7 @@ var Request = function(path) {
 	};
 
 	this.setAsynchronous = function(s) {
-		asynchronous = false;
+		asynchronous = s;
 	};
 
 	this.send = function() {
