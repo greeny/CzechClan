@@ -40,7 +40,7 @@
 	</table>
 </div>
 
-{if $u->allowedEmails && $u->id !== $user->id}
+{if $u->allowedEmails && $u->id !== $user->id && $user->loggedIn}
 	<h2>Napsat uživateli {$u->nick} email</h2>
 	{control contactUserForm}
 {/if}
