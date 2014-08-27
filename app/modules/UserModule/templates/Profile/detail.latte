@@ -40,8 +40,7 @@
 	</table>
 </div>
 
-<h2>Napsat uživateli {$u->nick} email</h2>
-
 {if $u->allowedEmails && $u->id !== $user->id}
+	<h2>Napsat uživateli {$u->nick} email</h2>
 	{control contactUserForm}
 {/if}
