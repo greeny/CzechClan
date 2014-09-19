@@ -17,4 +17,16 @@ class ForumThreadRepository extends BaseRepository
 				->fetchAll()
 		);
 	}
+
+	public function findNewestInTopics(array $ids)
+	{
+		return $this->createEntities(
+			$this->connection->select('*')
+				->from($this->getTable() . '_view')
+				->where('[topic_id] IN %in', $ids)
+				->orderBy('[last_post_date] DESC')
+				->limit(5)
+				->fetchAll()
+		);
+	}
 }

@@ -75,6 +75,16 @@ class ForumFacade extends BaseFacade
 		return $this->postRepository->countByThread($thread);
 	}
 
+	public function getLastPosts(Game $game)
+	{
+		$topicIds = $this->topicRepository->getTreeIds($game, NULL);
+		$ids = [];
+		foreach($topicIds as $topicId) {
+			$ids[] = $topicId->id;
+		}
+		return $this->threadRepository->findNewestInTopics($ids);
+	}
+
 	public function getTopics(Game $game, NUser $user, ForumTopic $parent = NULL)
 	{
 		$return = array();

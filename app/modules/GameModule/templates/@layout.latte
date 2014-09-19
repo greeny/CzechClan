@@ -1,36 +1,6 @@
 {extends '../../templates/@layout.latte'}
 {block titlePrefix}{$currentGame->name} &middot; {/block}
-{block topPanel}
-	<ul class="nav nav-tabs nav-justified">
-		<li n:class="$presenter->isLinkCurrent(':Game:Dashboard:default') ? active">
-			<a n:href="Dashboard:default"><span class="icon-th-large"></span>&nbsp;Nástěnka</a>
-		</li>
-		<li n:class="$presenter->isLinkCurrent(':Game:Information:*') ? active, dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-				<span class="icon-info"></span>&nbsp;Informace&nbsp;<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				{foreach $informations as $information}
-					<li n:class="$presenter->isLinkCurrent(':Game:Information:detail', array('id' => $information->slug)) ? active">
-						<a n:href="Information:detail $information->slug">{$information->title}</a>
-					</li>
-				{/foreach}
-			</ul>
-		</li>
-		<li n:class="$presenter->isLinkCurrent(':Game:Article:*') ? active">
-			<a n:href="Article:default"><span class="icon-file-text-o"></span>&nbsp;Články</a>
-		</li>
-		<li n:class="$presenter->isLinkCurrent(':Game:Forum:*') ? active">
-			<a n:href="Forum:default"><span class="icon-comments"></span>&nbsp;Fórum</a>
-		</li>
-		<li n:class="disabled">
-			<a n:href="Article:default"><span class="icon-"></span>&nbsp;Tickety</a>
-		</li>
-		<li n:class="disabled">
-			<a n:href="Article:default"><span class="icon-"></span>&nbsp;A-Team</a>
-		</li>
-	</ul>
-{/block}
+{block topPanel}{/block}
 {block panel}
 	<div class="spacer"></div>
 	<div n:if="$currentGame->feed" class="well well-sm">

@@ -7,6 +7,18 @@ namespace Tempeus\Model;
 
 class ForumTopicRepository extends BaseRepository
 {
+	public function findLast(Game $game)
+	{
+		return $this->createEntities(
+			$this->connection->select('*')
+				->from($this->getTable() . '_view')
+				->where('[game_id] = %i', $game->id)
+				->limit(5)
+				->orderBy('[last_post_date] DESC')
+				->fetchAll()
+		);
+	}
+
 	/**
 	 * @param Game       $game
 	 * @param ForumTopic $parent
@@ -109,15 +121,19 @@ class ForumTopicRepository extends BaseRepository
 		return $row ? $this->createEntity($row) : NULL;
 	}
 
-	public function getTreeIds(Game $game, ForumTopic $root)
+	public function getTreeIds(Game $game, ForumTopic $root = NULL)
 	{
-		return $this->connection->select('id')
+		$selection = $this->connection->select('id')
 			->from($this->getTable() . '_view')
 			->where('[game_id] = %i', $game->id)
-			->orderBy('[left] ASC')
-			->where('[left] >= %i', $root->left)
-			->where('[right] <= %i', $root->right)
-			->fetchAll();
+			->orderBy('[left] ASC');
+
+		if($root) {
+			$selection->where('[left] >= %i', $root->left)
+				->where('[right] <= %i', $root->right);
+		}
+
+		return $selection->fetchAll();
 	}
 
 	public function moveTopicDown(ForumTopic $topic)

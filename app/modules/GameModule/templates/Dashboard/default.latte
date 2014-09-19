@@ -15,8 +15,24 @@
 			<hr>
 			{$newestArticle->content|striptags|truncate:150|noescape}
 			<hr>
+			<a n:href="Article:default" class="btn btn-primary">Všechny články <span class="icon-chevron-right"></span></a>
 		</div>
-		<a n:href="Article:default" class="btn btn-primary">Všechny články <span class="icon-chevron-right"></span></a>
 	</div>
-	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="well">
+			<h2>Poslední aktivita na fóru</h2>
+			<div class="list-group">
+				{foreach $lastForumThreads as $lastForumThread}
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">
+							<a n:href="Forum:thread#post-{$lastForumThread->lastPost->order} $lastForumThread->id">{$lastForumThread->lastPost->title}</a>
+						</h4>
+						<div class="list-group-item-text">
+							napsal {control user, $lastForumThread->lastPost->user} dne {$lastForumThread->lastPost->datePosted|time}
+						</div>
+					</div>
+				{/foreach}
+			</div>
+		</div>
+	</div>
 </div>

@@ -7,7 +7,6 @@ namespace Tempeus\GameModule;
 
 use Nette\Utils\Paginator;
 use Tempeus\Controls\Form;
-use Tempeus\Model\ForumFacade;
 use Tempeus\Model\ForumPost;
 use Tempeus\Model\ForumThread;
 use Tempeus\Model\ForumTopic;
@@ -16,9 +15,6 @@ use Tempeus\Model\RoleRepository;
 
 class ForumPresenter extends BaseGamePresenter
 {
-	/** @var ForumFacade @inject */
-	public $forumFacade;
-
 	/** @var RoleRepository @inject */
 	public $roleRepository;
 

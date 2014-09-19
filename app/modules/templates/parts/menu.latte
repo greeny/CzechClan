@@ -1,0 +1,48 @@
+<ul class="nav navbar-nav navbar-left">
+	<li>
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			<b>Tempeus</b> <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li n:class="$presenter->isLinkCurrent(':Public:Dashboard:default') ? active">
+				<a n:href=":Public:Dashboard:default">
+					<span class="icon-fw icon-th-large"></span> Nástěnka
+				</a>
+			</li>
+			<li n:class="$presenter->isLinkCurrent(':Web:Dashboard:default') ? active">
+				<a n:href=":Web:Dashboard:default">
+					<span class="icon-gears"></span> Dokončování webu
+				</a>
+			</li>
+		</ul>
+	</li>
+	{foreach $games as $g}
+		<li n:class="dropdown, isset($currentGame) && ($currentGame->slug === $g->slug) ? active">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				{$g->name} <span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li n:class="$presenter->isLinkCurrent(':Game:Dashboard:*', array('slug' => $g->slug)) ? active">
+					<a n:href=":Game:Dashboard:default, slug => $g->slug">
+						<span class="icon-fw icon-th-large"></span> Nástěnka
+					</a>
+				</li>
+				<li n:class="$presenter->isLinkCurrent(':Game:Information:*', array('slug' => $g->slug)) ? active">
+					<a n:href=":Game:Information:default, slug => $g->slug">
+						<span class="icon-fw icon-info"></span> Informace
+					</a>
+				</li>
+				<li n:class="$presenter->isLinkCurrent(':Game:Article:*', array('slug' => $g->slug)) ? active">
+					<a n:href=":Game:Article:default, slug => $g->slug">
+						<span class="icon-fw icon-files-o"></span> Články
+					</a>
+				</li>
+				<li n:class="$presenter->isLinkCurrent(':Game:Forum:*', array('slug' => $g->slug)) ? active">
+					<a n:href=":Game:Forum:default, slug => $g->slug">
+						<span class="icon-fw icon-comments"></span> Fórum
+					</a>
+				</li>
+			</ul>
+		</li>
+	{/foreach}
+</ul>

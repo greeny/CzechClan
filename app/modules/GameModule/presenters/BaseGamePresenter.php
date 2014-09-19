@@ -9,6 +9,7 @@ use Tempeus\BasePresenter;
 use Tempeus\Games\Feeds\GtaFeedProvider;
 use Tempeus\Games\Feeds\MinecraftFeedProvider;
 use Tempeus\Games\Minecraft\MinecraftController;
+use Tempeus\Model\ForumFacade;
 use Tempeus\Model\Game;
 use Tempeus\Model\GameRepository;
 use Tempeus\Model\InformationRepository;
@@ -29,6 +30,9 @@ abstract class BaseGamePresenter extends BasePresenter
 
 	/** @var InformationRepository @inject */
 	public $informationRepository;
+
+	/** @var ForumFacade @inject */
+	public $forumFacade;
 
 	/** @var Game */
 	protected $game;

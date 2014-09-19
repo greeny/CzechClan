@@ -15,5 +15,6 @@ class DashboardPresenter extends BaseGamePresenter
 	public function renderDefault()
 	{
 		$this->template->newestArticle = $this->articleRepository->findNewest($this->game);
+		$this->template->lastForumThreads = $this->forumFacade->getLastPosts($this->game);
 	}
 }

@@ -6,6 +6,7 @@
 namespace Tempeus\Games\Feeds;
 
 use Nette\Object;
+use Nette\Utils\ArrayHash;
 
 abstract class BaseFeedProvider extends Object implements IFeedProvider
 {
@@ -50,6 +51,21 @@ abstract class BaseFeedProvider extends Object implements IFeedProvider
 
 	public function getFeed()
 	{
-		return $this->feed ? $this->feed : $this->feed = json_decode(file_get_contents($this->feedPath));
+		if($this->feed) {
+			return $this->feed;
+		}
+		$feed = @file_get_contents($this->feedPath); // @ - may not be available
+		if(!$feed) {
+			return $this->feed = ArrayHash::from(array(
+				'status' => 'offline',
+				'players_list' => array(),
+				'players' => 0,
+				'slots' => 0,
+				'hostname' => 'Unknown',
+				'version' => 'Unknown',
+				'map' => 'Unknown',
+			));
+		}
+		return $this->feed = json_decode($feed);
 	}
 }
