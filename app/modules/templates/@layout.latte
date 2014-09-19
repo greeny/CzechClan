@@ -30,6 +30,7 @@
 					{include 'parts/menu.latte'}
 
 					<ul class="nav navbar-nav navbar-right">
+						{default $notifications = array()}
 						{if $user->loggedIn}
 							<li>
 								<a n:href=":Chat:Dashboard:default" target="_blank">
