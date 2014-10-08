@@ -1,6 +1,6 @@
 {block content}
 <div class="page-header">
-	<h1>{$ticket->title} &middot; Tickety</h1>
+	<h1 n:inner-block="title">{$ticket->title} &middot; Tickety</h1>
 </div>
 
 <a n:href="default" class="btn btn-default"><span class="icon-chevron-left"></span> Zpět na seznam ticketů</a>
