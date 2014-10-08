@@ -42,6 +42,8 @@ services:
 	- Tempeus\Model\LogRepository
 	- Tempeus\Model\PermissionRepository
 	- Tempeus\Model\RoleRepository
+	- Tempeus\Model\TicketRepository
+	- Tempeus\Model\TicketResponseRepository
 	- Tempeus\Model\UserRepository
 
 	- Tempeus\Security\Authenticator

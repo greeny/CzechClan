@@ -21,12 +21,7 @@ class RouterFactory
 			'presenter' => 'Dashboard',
 			'action' => 'default',
 		));
-		$router[] = new Route('<module (user|web|chat)>/<presenter>/<action>[/<id>]', array(
-			'presenter' => 'Dashboard',
-			'action' => 'default',
-		));
-		$router[] = new Route('api/<version>/<presenter>/<action>[/<id>]', array(
-			'module' => 'Api',
+		$router[] = new Route('<module (user|web|chat|api)>/<presenter>/<action>[/<id>]', array(
 			'presenter' => 'Dashboard',
 			'action' => 'default',
 		));

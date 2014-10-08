@@ -1,0 +1,34 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Tickety</h1>
+</div>
+
+<a n:href="default" class="btn btn-default"><span class="icon-chevron-left"></span> Zpět na veřejné tickety</a>
+
+<h3>Moje tickety</h3>
+
+<div class="table-responsive">
+	<table class="table table-condensed table-hover table-striped">
+		<thead>
+			<tr>
+				<th>Titulek</th>
+				<th>Hra</th>
+				<th>Status</th>
+				<th>Vytvořeno</th>
+				<th>Odpovědi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr n:foreach="$tickets as $ticket">
+				<td><a n:href="detail $ticket->id">{$ticket->title}</a></td>
+				<td>{$ticket->game ? $ticket->game->name : 'Webové stránky'}</td>
+				<td>{$ticket->statusMessage}</td>
+				<td>{$ticket->dateCreated|time}</td>
+				<td>{count($ticket->responses)}</td>
+			</tr>
+			<tr n:if="!count($tickets)">
+				<td colspan="4" class="text-center">Nenalezeny žádné veřejné tickety</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

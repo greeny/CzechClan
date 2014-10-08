@@ -33,7 +33,6 @@ class GameRepository extends BaseRepository
 	{
 		return $this->connection->select('*')
 			->from($this->getTable())
-			->orderBy('[name] ASC')
 			->fetchPairs('id', 'name');
 	}
 

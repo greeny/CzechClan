@@ -49,6 +49,7 @@ class Authorizator implements IAuthorizator
 		$permission->addRole('quest');
 		$permission->addRole('member', 'quest');
 		$permission->addResource('admin');
+		$permission->addResource('ticket');
 		$permission->allow('owner');
 		$this->initialize();
 	}

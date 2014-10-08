@@ -9,6 +9,11 @@
 					<span class="icon-fw icon-th-large"></span> Nástěnka
 				</a>
 			</li>
+			<li n:class="$presenter->isLinkCurrent(':Web:Ticket:default') ? active">
+				<a n:href=":Web:Ticket:default">
+					<span class="icon-ticket"></span> Tickety
+				</a>
+			</li>
 			<li n:class="$presenter->isLinkCurrent(':Web:Dashboard:default') ? active">
 				<a n:href=":Web:Dashboard:default">
 					<span class="icon-gears"></span> Dokončování webu

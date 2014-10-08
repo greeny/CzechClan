@@ -1,0 +1,47 @@
+{block content}
+<div class="page-header">
+	<h1>{$ticket->title} &middot; Tickety</h1>
+</div>
+
+<a n:href="default" class="btn btn-default"><span class="icon-chevron-left"></span> Zpět na seznam ticketů</a>
+
+<p></p>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">{$ticket->title} ({$ticket->statusMessage})</div>
+
+	<div class="list-group">
+		<div class="list-group-item">
+			<div class="list-group-item-heading">{control user, $ticket->user} dne {$ticket->dateCreated|time}</div>
+			<div class="list-group-item-text">{$ticket->text|noescape}</div>
+		</div>
+		<div class="list-group-item" n:foreach="$ticket->responses as $response">
+			<div class="list-group-item-heading">{control user, $response->user} dne {$response->time|time}</div>
+			<div class="list-group-item-text">{$response->text|noescape}</div>
+		</div>
+		<div class="list-group-item" n:if="$user->loggedIn">
+			{control addResponseForm}
+			{if $ticket->assignedUser && $user->id === $ticket->assignedUser->id}
+				<div class="row">
+					<div class="col-sm-3">
+						<b>Změnit status na</b>
+					</div>
+					<div class="col-sm-9">
+						<a n:href="status! $id" n:foreach="$ticket->getStatusMessages() as $id => $message" n:class="btn, btn-default, $ticket->status === $id ? 'active disabled'">{$message}</a>
+					</div>
+				</div>
+			{/if}
+			{if !$ticket->assignedUser && $user->isAllowed('ticket', 'assign')}
+				<div class="row">
+					<div class="col-sm-3">
+						<b>Přiřadit si ticket</b>
+					</div>
+					<div class="col-sm-9">
+						<a n:href="assign!" class="btn btn-primary">Ano</a>
+					</div>
+				</div>
+			{/if}
+		</div>
+	</div>
+</div>
+
