@@ -59,6 +59,22 @@ class TicketPresenter extends BaseWebPresenter
 		$this->template->tickets = $this->ticketRepository->findByOwner($this->userRepository->find($this->user->id));
 	}
 
+	public function actionForMe()
+	{
+		if(!$this->user->isLoggedIn()) {
+			$this->redirect('default');
+		}
+		$this->template->tickets = $this->ticketRepository->findByAssignedUser($this->userRepository->find($this->user->id));
+	}
+
+	public function actionUnassigned()
+	{
+		if(!$this->user->isLoggedIn() || !$this->user->isAllowed('ticket', 'assign')) {
+			$this->redirect('default');
+		}
+		$this->template->tickets = $this->ticketRepository->findUnassigned();
+	}
+
 	protected function createComponentNewTicketForm()
 	{
 		$form = $this->createForm();

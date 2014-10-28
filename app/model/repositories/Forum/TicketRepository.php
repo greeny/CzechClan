@@ -29,4 +29,26 @@ class TicketRepository extends BaseRepository
 				->fetchAll()
 		);
 	}
+
+	public function findByAssignedUser(User $user)
+	{
+		return $this->createEntities(
+			$this->connection->select('*')
+				->from($this->getTable())
+				->where('[assigned_user_id] = ?', $user->id)
+				->orderBy('[date_created] DESC')
+				->fetchAll()
+		);
+	}
+
+	public function findUnassigned()
+	{
+		return $this->createEntities(
+			$this->connection->select('*')
+				->from($this->getTable())
+				->where('[assigned_user_id] IS NULL')
+				->orderBy('[date_created] DESC')
+				->fetchAll()
+		);
+	}
 }

@@ -7,11 +7,13 @@
 	<p>
 		<b>Tickety</b> jsou zprávy, které posíláte adminům. Jako ticket může být považováno například nahlášení chyby ve hře / na webu, případně návrhy na nové funkce.
 		Ticket můžete poslat buď veřejně, tzn. uvidí ho kdokoliv a může poslat svůj názor nebo komentář,
-		nebo můžete poslat ticket soukromě, to se pak zobrazí jen adminovi, který na něj odpoví (a vám).
+		nebo můžete poslat ticket soukromě, ten se pak zobrazí jen adminovi, který na něj odpoví (a vám).
 	</p>
 	<div class="btn-group" n:if="$user->isLoggedIn()">
 		<a n:href="new" class="btn btn-success"><span class="icon-plus"></span> Nový ticket</a>
 		<a n:href="my" class="btn btn-primary"><span class="icon-list"></span> Moje tickety</a>
+		<a n:href="forMe" class="btn btn-warning"><span class="icon-list"></span> Tickety pro mě</a>
+		<a n:if="$user->isAllowed('ticket', 'assign')" n:href="unassigned" class="btn btn-info"><span class="icon-list"></span> Nepřiřazené tickety</a>
 	</div>
 </div>
 
@@ -24,7 +26,6 @@
 				<th>Titulek</th>
 				<th>Autor</th>
 				<th>Hra</th>
-				<th>Status</th>
 				<th>Vytvořeno</th>
 				<th>Odpovědi</th>
 			</tr>
@@ -34,7 +35,6 @@
 				<td><a n:href="detail $ticket->id">{$ticket->title}</a></td>
 				<td>{control user, $ticket->user}</td>
 				<td>{$ticket->game ? $ticket->game->name : 'Webové stránky'}</td>
-				<td>{$ticket->statusMessage}</td>
 				<td>{$ticket->dateCreated|time}</td>
 				<td>{count($ticket->responses)}</td>
 			</tr>

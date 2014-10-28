@@ -5,7 +5,7 @@
 
 <a n:href="default" class="btn btn-default"><span class="icon-chevron-left"></span> Zpět na veřejné tickety</a>
 
-<h3>Moje tickety</h3>
+<h3>Nepřiřazené tickety</h3>
 
 <div class="table-responsive">
 	<table class="table table-condensed table-hover table-striped">
@@ -27,7 +27,7 @@
 				<td>{count($ticket->responses)}</td>
 			</tr>
 			<tr n:if="!count($tickets)">
-				<td colspan="4" class="text-center">Nenalezeny žádné tickety</td>
+				<td colspan="4" class="text-center">Nenalezeny žádné nepřiřazené tickety</td>
 			</tr>
 		</tbody>
 	</table>
