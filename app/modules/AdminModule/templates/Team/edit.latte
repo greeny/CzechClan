@@ -1,0 +1,17 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Upravit team {$team->name}</h1>
+</div>
+
+{control editTeamForm}
+
+<h3>Členové týmu</h3>
+
+{control addUserToTeamForm}
+
+<ul>
+	<li n:foreach="$team->users as $u">
+		<a n:href="removeUserFromTeam! userId => $u->id" class="btn btn-xs btn-danger"><span class="icon-times"></span></a>
+		{control user $u}
+	</li>
+</ul>

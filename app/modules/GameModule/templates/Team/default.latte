@@ -1,0 +1,18 @@
+{block content}
+<div class="page-header">
+	<h1 n:inner-block="title">Admin Team</h1>
+</div>
+
+{foreach $teams as $team}
+	{continueIf !count($team->users)}
+	<div class="well well-sm">
+		<h4>{$team->name} ({count($team->users)}x)</h4>
+		<p>{$team->description}</p>
+		<p>
+			{foreach $team->users as $u}
+				{control user, $u}{sep}, {/sep}
+			{/foreach}
+		</p>
+	</div>
+	{sep}<div class="spacer"></div>{/sep}
+{/foreach}

@@ -2,14 +2,19 @@
 {block content-outer}
 <div class="jumbotron" style="height: 100%;">
 	<h1>Tempeus - oficiální webové stránky</h1>
-	<div class="text-center col-md-6 col-md-offset-3">
-		<div class="btn-group-vertical btn-block">
-			{foreach $games as $game}
-				<a class="btn btn-primary btn-lg"
-				   n:href=":Game:Dashboard:default slug => $game->slug">{$game->name}
-				</a>
-			{/foreach}
-		</div>
-	</div>
 </div>
+
+<div class="text-center">
+	<h3>Naše hry:</h3>
+	{foreach $games as $game}
+		<a class="btn btn-primary btn-lg"
+		   n:href=":Game:Dashboard:default slug => $game->slug">{$game->name}
+		</a>
+	{/foreach}
+	<h3>Další odkazy:</h3>
+	<a class="btn btn-info btn-lg" n:href=":Web:Ticket:default">Tickety</a>
+	<a class="btn btn-info btn-lg" n:href=":Web:Dashboard:default">Vývoj webu</a>
+	<a class="btn btn-info btn-lg" n:href=":Chat:Dashboard:default" target="_blank">Chat</a>
+</div>
+
 <div class="spacer"></div>

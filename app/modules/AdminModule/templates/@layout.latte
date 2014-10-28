@@ -62,6 +62,17 @@
                         </li>
                     </ul>
                 </li>
+                <li class="dropdown" n:if="$presenter->isGameAllowed($currentGame->slug, 'team')">
+                    <a href="#" data-toggle="dropdown"><span class="icon-users"></span> Admin Team <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li n:class="$presenter->isLinkCurrent(':Admin:Team:default') ? active">
+                            <a n:href=":Admin:Team:default"><span class="icon-list icon-fw"></span> Seznam teamů</a>
+                        </li>
+                        <li n:class="$presenter->isLinkCurrent(':Admin:Team:add') ? active">
+                            <a n:href=":Admin:Team:add"><span class="icon-plus icon-fw"></span> Přidat team</a>
+                        </li>
+                    </ul>
+                </li>
 			{else}
 				{capture $content}
 					{if $presenter->isGameAllowed('general', 'game')}

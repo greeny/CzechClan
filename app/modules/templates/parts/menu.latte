@@ -37,6 +37,11 @@
 						<span class="icon-fw icon-info"></span> Informace
 					</a>
 				</li>
+				<li n:class="$presenter->isLinkCurrent(':Game:Team:*', array('slug' => $g->slug)) ? active">
+					<a n:href=":Game:Team:default, slug => $g->slug">
+						<span class="icon-fw icon-users"></span> Admin Team
+					</a>
+				</li>
 				<li n:class="$presenter->isLinkCurrent(':Game:Article:*', array('slug' => $g->slug)) ? active">
 					<a n:href=":Game:Article:default, slug => $g->slug">
 						<span class="icon-fw icon-files-o"></span> Články
