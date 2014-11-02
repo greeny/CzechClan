@@ -6,6 +6,7 @@
 namespace Tempeus\Model;
 
 use LeanMapper\Connection;
+use Nette\InvalidStateException;
 use Nette\Security\User as NUser;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Paginator;
@@ -177,6 +178,23 @@ class ForumFacade extends BaseFacade
 		return $topic;
 	}
 
+	public function deleteTopic(ForumTopic $topic, $isRecursive = FALSE)
+	{
+		if(count($this->getThreads($topic))) {
+			throw new InvalidStateException("Téma '$topic->title'" . ($isRecursive ? ', které je v tomto tématu,' : '') ." stále obsahuje vlákna.");
+		}
+		foreach($this->topicRepository->findByGame($topic->game, $topic) as $child) {
+			$this->deleteTopic($child, TRUE);
+		}
+		if(!$isRecursive) {
+			$left = $topic->left;
+			$right = $topic->right;
+			$this->topicRepository->decreaseLeftAndRight($topic->game, $right + 1, $right - $left + 1);
+		}
+		$this->topicRepository->delete($topic);
+	}
+
+
 	/**
 	 * @param User       $user
 	 * @param ForumTopic $topic
@@ -220,6 +238,26 @@ class ForumFacade extends BaseFacade
 		return $thread;
 	}
 
+	/**
+	 * @param ForumThread[] $threads
+	 */
+	public function deleteThreads(array $threads)
+	{
+		$posts = [];
+		foreach($threads as $thread) {
+			$count = $this->postRepository->countByThread($thread);
+			$paginator = new Paginator;
+			$paginator->itemCount = $paginator->itemsPerPage = $count;
+			foreach($this->getPostsInThread($thread, $paginator) as $post) {
+				$posts[] = $post;
+			}
+		}
+		$this->deletePosts($posts);
+		foreach($threads as $thread) {
+			$this->threadRepository->delete($thread);
+		}
+	}
+
 	public function createPost(User $user, ForumThread $thread, ArrayHash $values)
 	{
 		$this->startTransaction();
@@ -255,6 +293,21 @@ class ForumFacade extends BaseFacade
 		$post->dateLastEdit = Time();
 		$this->postRepository->persist($post);
 		$this->postContentRepository->persist($post->content);
+	}
+
+	/**
+	 * @param ForumPost[] $posts
+	 */
+	public function deletePosts(array $posts)
+	{
+		$ids = [];
+		$contentIds = [];
+		foreach($posts as $post) {
+			$ids[] = $post->id;
+			$contentIds[] = $post->content->id;
+		}
+		$this->connection->delete('forum_post_content')->where('[id] IN ?', $contentIds);
+		$this->connection->delete('forum_post')->where('[id] IN ?', $ids);
 	}
 
 	public function pinThread(ForumThread $thread)

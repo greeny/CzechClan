@@ -5,6 +5,7 @@
 
 namespace Tempeus\GameModule;
 
+use Nette\InvalidStateException;
 use Nette\Utils\Paginator;
 use Tempeus\Controls\Form;
 use Tempeus\Model\ForumPost;
@@ -179,7 +180,20 @@ class ForumPresenter extends BaseGamePresenter
 
 	public function handleDeleteTopic($topicId)
 	{
+		$topic = $this->forumFacade->getTopic($topicId);
+		try {
+			$this->forumFacade->deleteTopic($topic);
+		} catch(InvalidStateException $e) {
+			$this->flashError($e->getMessage());
+		}
+		$this->refresh();
+	}
 
+	public function handleDeleteThread($threadId)
+	{
+		$thread = $this->forumFacade->getThread($threadId);
+		$this->forumFacade->deleteThreads([$thread]);
+		$this->refresh();
 	}
 
 	public function handlePinThread($threadId)

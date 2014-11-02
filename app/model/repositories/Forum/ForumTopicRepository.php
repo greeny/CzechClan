@@ -71,6 +71,16 @@ class ForumTopicRepository extends BaseRepository
 			$increase, $min, $game->id);
 	}
 
+	public function decreaseLeftAndRight(Game $game, $min, $decrease)
+	{
+		$this->connection->query(
+			'UPDATE [forum_topic] SET [left] = [left] - ? WHERE [left] >= ? AND [game_id] = ?',
+			$decrease, $min, $game->id);
+		$this->connection->query(
+			'UPDATE [forum_topic] SET [right] = [right] - ? WHERE [right] >= ? AND [game_id] = ?',
+			$decrease, $min, $game->id);
+	}
+
 	public function increaseLeft(array $ids, $delta)
 	{
 		$this->connection->query(

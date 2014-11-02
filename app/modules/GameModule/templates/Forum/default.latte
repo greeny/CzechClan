@@ -61,7 +61,7 @@
 						<a n:href="moveTopic! topicId => $topic->id, direction => up" n:class="btn, btn-default, btn-xs, $iterator->isFirst() ? disabled"><span class="icon-fw icon-chevron-up"></span></a>
 					</span>
 					<span class="btn-group">
-						<a n:href="deleteTopic! topicId => $topic->id" class="btn btn-default btn-xs disabled"><span class="icon-fw icon-times"></span></a>
+						<a n:href="deleteTopic! topicId => $topic->id" class="btn btn-default btn-xs" data-confirm="Opravdu chcete smazat téma '{$topic->title}'?"><span class="icon-fw icon-times"></span></a>
 						<a n:href="moveTopic! topicId => $topic->id, direction => down" n:class="btn, btn-default, btn-xs, $iterator->isLast() ? disabled"><span class="icon-fw icon-chevron-down"></span></a>
 					</span>
 				</td>
@@ -108,7 +108,7 @@
 						<a n:href="lockThread! $thread->id" class="btn btn-default btn-xs"><span n:class="icon-fw, $thread->locked ? icon-unlock : icon-lock"></span></a>
 					</span>
 					<span class="btn-group">
-						<a n:href="deleteThread! $thread->id" class="disabled btn btn-default btn-xs"><span class="icon-fw icon-times"></span></a>
+						<a n:href="deleteThread! $thread->id" class="btn btn-default btn-xs" data-confirm="Opravdu chcete smazat vlákno '{$thread->title}'?"><span class="icon-fw icon-times"></span></a>
 						<a n:href="pinThread! $thread->id" class="btn btn-default btn-xs"><span n:class="icon-fw, $thread->pinned ? icon-star : icon-star-o"></span></a>
 					</span>
 				</td>
